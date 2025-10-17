@@ -1,33 +1,191 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="my">
 <head>
-  <meta charset="UTF-8">
-  <title>MLBB Shop</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLBB Skin Shop</title>
   <style>
     body {
-      background: #0a0a0a;
-      color: white;
-      font-family: sans-serif;
-      text-align: center;
-      padding-top: 60px;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(180deg, #0d1b2a, #000);
+      color: #fff;
+      margin: 0;
+      padding: 0;
     }
-    h1 {
-      color: gold;
+    header {
+      text-align: center;
+      padding: 20px;
+      background: #112b3c;
+      font-size: 1.6em;
+      font-weight: bold;
+      letter-spacing: 1px;
+      border-bottom: 2px solid #00b4d8;
+    }
+    .shop {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+      padding: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .item {
+      background: #1b263b;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #00b4d8aa;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+    .item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00b4d8;
+    }
+    .item img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .info {
+      padding: 15px;
+    }
+    .name {
+      font-weight: bold;
+      font-size: 1.1em;
+      margin-bottom: 5px;
+      color: #90e0ef;
+    }
+    .hero {
+      font-size: 0.9em;
+      color: #caf0f8;
+      margin-bottom: 10px;
+    }
+    .price {
+      color: #ffd60a;
+      margin-bottom: 10px;
     }
     button {
-      background: gold;
+      width: 100%;
+      padding: 10px;
+      background: #00b4d8;
       border: none;
-      color: black;
+      border-radius: 10px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background: #0096c7;
+    }
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .popup.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .popup-content {
+      background: #1b263b;
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 15px #00b4d8;
+      animation: pop 0.4s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .popup-content h2 {
+      color: #90e0ef;
+      margin-bottom: 10px;
+    }
+    .popup-content p {
+      color: #ffd60a;
+      margin-bottom: 20px;
+    }
+    .close-btn {
+      background: #00b4d8;
+      border: none;
       padding: 10px 20px;
-      margin: 10px;
-      border-radius: 6px;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
       font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to MLBB Shop 💎</h1>
-  <p>Buy skins, diamonds, and more!</p>
-  <button>Buy Now</button>
+  <header>🔥 MLBB Skin Shop 🔥</header>
+
+  <div class="shop" id="shop"></div>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>ဝယ်ယူမှုအောင်မြင်ပါသည် 🎉</h2>
+      <p>သင်၏အကောင့်သို့ Skin ပြောင်းလဲမှုအောင်မြင်ပါပြီ။</p>
+      <button class="close-btn" onclick="closePopup()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const skins = [
+      {name:"Lightborn – Granger", hero:"Granger", price:"🎟 Collector Token x250", img:"https://i.imgur.com/5XfEN1z.jpg"},
+      {name:"Dragon Tamer", hero:"Kimmy", price:"🔮 Magic Crystal x200", img:"https://i.imgur.com/LxrpqUs.jpg"},
+      {name:"Starfall Knight", hero:"Alucard", price:"🎟 Collector Token x240", img:"https://i.imgur.com/yNniWw2.jpg"},
+      {name:"Infernal Blaze", hero:"Valir", price:"🔮 Magic Crystal x180", img:"https://i.imgur.com/6NeOaF5.jpg"},
+      {name:"KOF – Chou", hero:"Chou", price:"🎟 Event Fragment x220", img:"https://i.imgur.com/1UkgErZ.jpg"},
+      {name:"Blazing Force", hero:"Fanny", price:"🔮 Magic Crystal x250", img:"https://i.imgur.com/XBPUljO.jpg"},
+      {name:"Swordmaster", hero:"Gusion", price:"🎟 Collector Token x240", img:"https://i.imgur.com/vw7Sr9N.jpg"},
+      {name:"Venom Cobra", hero:"Gusion", price:"🧬 Venom Fragment x150", img:"https://i.imgur.com/hWQvWB1.jpg"},
+      {name:"Dragon Tamer", hero:"Ling", price:"🔮 Magic Crystal x210", img:"https://i.imgur.com/mQzWRdE.jpg"},
+      {name:"Lightborn – Tigreal", hero:"Tigreal", price:"🎟 Collector Token x220", img:"https://i.imgur.com/fV7fWWt.jpg"},
+      {name:"Primeval Hunter", hero:"Claude", price:"🔮 Magic Crystal x190", img:"https://i.imgur.com/fMtWjXU.jpg"},
+      {name:"Shikigami Summoner", hero:"Kagura", price:"🎟 Collector Token x200", img:"https://i.imgur.com/3jQ5fJD.jpg"},
+      {name:"Obsidian Blade", hero:"Saber", price:"🎟 Collector Token x230", img:"https://i.imgur.com/z1oGEh2.jpg"},
+      {name:"Zodiac Aquarius", hero:"Aurora", price:"♒ Zodiac Token x210", img:"https://i.imgur.com/3iXLEyB.jpg"},
+      {name:"Empyrean Flame", hero:"Valentina", price:"🔮 Magic Crystal x250", img:"https://i.imgur.com/N1FOLpT.jpg"},
+      {name:"Cosmic Voyage", hero:"Lunox", price:"🎟 Collector Token x200", img:"https://i.imgur.com/ZHu86zE.jpg"},
+      {name:"Blue Specter", hero:"Fanny", price:"🔮 Magic Crystal x220", img:"https://i.imgur.com/p2uIzXk.jpg"},
+      {name:"Celestial Bastion", hero:"Yu Zhong", price:"🔮 Magic Crystal x210", img:"https://i.imgur.com/yPiHoN7.jpg"},
+      {name:"Infernal Abyss", hero:"Balmond", price:"🎟 Collector Token x190", img:"https://i.imgur.com/KzBrkqt.jpg"},
+      {name:"King of Supremacy", hero:"Alucard", price:"🎟 Collector Token x230", img:"https://i.imgur.com/kUpOZxX.jpg"},
+    ];
+
+    const shop = document.getElementById('shop');
+    const popup = document.getElementById('popup');
+
+    skins.forEach(s => {
+      const div = document.createElement('div');
+      div.className = 'item';
+      div.innerHTML = `
+        <img src="${s.img}" alt="${s.name}">
+        <div class="info">
+          <div class="name">${s.name}</div>
+          <div class="hero">${s.hero}</div>
+          <div class="price">${s.price}</div>
+          <button onclick="showPopup()">Buy Now</button>
+        </div>
+      `;
+      shop.appendChild(div);
+    });
+
+    function showPopup(){
+      popup.classList.add('active');
+    }
+    function closePopup(){
+      popup.classList.remove('active');
+    }
+  </script>
 </body>
 </html>
