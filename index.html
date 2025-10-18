@@ -1,195 +1,264 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="my">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MLBB Collab Event Shop</title>
-<style>
-  * {margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
-  body {
-    background: url('https://wallpapercave.com/wp/wp6712879.jpg') no-repeat center center/cover;
-    color:#fff;
-    overflow-x:hidden;
-  }
-  header {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:rgba(0,0,0,0.8);
-    padding:10px 20px;
-    box-shadow:0 0 10px #ff0000;
-  }
-  header img {
-    height:45px;
-  }
-  .store-btns img {
-    height:35px;
-    margin-left:10px;
-  }
-  .banner {
-    text-align:center;
-    background:linear-gradient(90deg,#e10000,#ff6600);
-    padding:15px;
-    font-size:1.4rem;
-    font-weight:bold;
-    text-shadow:0 0 8px #000;
-    letter-spacing:1px;
-  }
-  .main-feature {
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    background:rgba(0,0,0,0.75);
-    padding:20px;
-  }
-  .main-feature img {
-    width:250px;
-    margin:10px;
-    border-radius:15px;
-    box-shadow:0 0 15px #ff3300;
-    transition:0.3s;
-  }
-  .main-feature img:hover {
-    transform:scale(1.05);
-    box-shadow:0 0 25px #ffd000;
-  }
-  .exchange-bar {
-    text-align:center;
-    background:rgba(255,255,255,0.1);
-    color:#ffd;
-    padding:8px;
-    font-size:0.9rem;
-  }
-  .skins {
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:20px;
-    padding:30px;
-  }
-  .card {
-    background:rgba(0,0,0,0.7);
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:10px;
-    overflow:hidden;
-    transition:0.3s;
-    position:relative;
-  }
-  .card:hover {
-    transform:scale(1.05);
-    box-shadow:0 0 20px #ff6600;
-  }
-  .card img {
-    width:100%;
-    height:220px;
-    object-fit:cover;
-  }
-  .price {
-    position:absolute;
-    bottom:8px;
-    right:10px;
-    background:rgba(0,0,0,0.7);
-    padding:5px 10px;
-    border-radius:6px;
-    color:#00eaff;
-    font-weight:bold;
-    font-size:0.9rem;
-  }
-  .info {
-    text-align:center;
-    padding:10px;
-  }
-  .info h3 {
-    font-size:1rem;
-    margin-bottom:8px;
-  }
-  .buy-btn {
-    background:linear-gradient(90deg,#ffcc00,#ff6600);
-    color:#000;
-    border:none;
-    padding:8px 14px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
-    transition:0.2s;
-  }
-  .buy-btn:hover {
-    background:linear-gradient(90deg,#ffe066,#ff8533);
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLBB Rare Skins Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a1a;
+            background-image: linear-gradient(rgba(10, 10, 26, 0.8), rgba(10, 10, 26, 1)), url('https://wallpapercave.com/wp/wp6434462.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            color: #f0f0f0;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #FFC300;
+            text-shadow: 0 0 10px #FFC300, 0 0 20px #FF5733;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .skin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .skin-card {
+            background: linear-gradient(145deg, #1e1e3f, #1a1a33);
+            border: 2px solid #4a4a8a;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .skin-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(255, 195, 0, 0.3);
+            border-color: #FFC300;
+        }
+
+        .skin-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            object-position: top;
+            border-bottom: 2px solid #4a4a8a;
+        }
+        
+        .skin-card-info {
+            padding: 15px;
+        }
+
+        .skin-card h3 {
+            margin: 0 0 5px 0;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .skin-card p {
+            margin: 0;
+            color: #b0b0d0;
+            font-size: 0.9rem;
+        }
+
+        .skin-type-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(255, 87, 51, 0.85);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px black;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-  <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/Mobile_Legends_Bang_Bang_logo.png" alt="MLBB Logo">
-  <div class="store-btns">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Google_Play_Store_badge_EN.svg" alt="PlayStore">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="AppStore">
-  </div>
-</header>
+    <div class="container">
+        <h1 class="main-title">MLBB RARE & EXPENSIVE SKINS</h1>
+        <p class="subtitle">MLBB ၏ အရှားပါးဆုံးနှင့် ဈေးအကြီးဆုံး Skin များ စုစည်းမှု <br> (နောက်ခံတေးဂီတစတင်ရန် စာမျက်နှာကို တစ်ချက်နှိပ်ပါ)</p>
 
-<div class="banner">🔥 EXCLUSIVE EVENT – COLLAB SKINS NOW AVAILABLE 🔥<br>Join and Get Your Exclusive Skins Now!</div>
+        <div class="skin-grid">
+            <div class="skin-card">
+                <img src="https://i.ytimg.com/vi/W9sVjdj1m9Y/maxresdefault.jpg" alt="Gusion Cosmic Gleam">
+                <div class="skin-type-badge">LEGEND</div>
+                <div class="skin-card-info">
+                    <h3>Gusion</h3>
+                    <p>Cosmic Gleam</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://i.pinimg.com/originals/1a/0c/b9/1a0cb98522e84d33457a4a2b9f665551.jpg" alt="Granger Starfall Knight">
+                 <div class="skin-type-badge">LEGEND</div>
+                <div class="skin-card-info">
+                    <h3>Granger</h3>
+                    <p>Starfall Knight</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://www.xtrafondos.com/en/descargar.php?id=7900&resolucion=1280x720" alt="Chou Iori Yagami">
+                 <div class="skin-type-badge">KOF</div>
+                <div class="skin-card-info">
+                    <h3>Chou</h3>
+                    <p>Iori Yagami</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://images.hdqwalls.com/download/fanny-blade-of-kibou-5k-w9-1280x720.jpg" alt="Fanny Blade of Kibou">
+                 <div class="skin-type-badge">ASPIRANTS</div>
+                <div class="skin-card-info">
+                    <h3>Fanny</h3>
+                    <p>Blade of Kibou</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://images4.alphacoders.com/131/1317134.jpeg" alt="Aldous King of Supremacy">
+                 <div class="skin-type-badge">M1 EXCLUSIVE</div>
+                <div class="skin-card-info">
+                    <h3>Aldous</h3>
+                    <p>King of Supremacy</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://i.ytimg.com/vi/FqMv-f-91mE/maxresdefault.jpg" alt="Wanwan Pixel Blast">
+                 <div class="skin-type-badge">COLLECTOR</div>
+                <div class="skin-card-info">
+                    <h3>Wanwan</h3>
+                    <p>Pixel Blast</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://images.alphacoders.com/133/1332717.jpeg" alt="Yin Yuji Itadori">
+                <div class="skin-type-badge">JJK</div>
+                <div class="skin-card-info">
+                    <h3>Yin</h3>
+                    <p>Yuji Itadori</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://images2.alphacoders.com/123/1233800.jpg" alt="Lancelot Blade of Roses">
+                <div class="skin-type-badge">HERO</div>
+                <div class="skin-card-info">
+                    <h3>Lancelot</h3>
+                    <p>Blade of Roses</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://i.pinimg.com/originals/30/ca/ca/30cacaad54f594511a5b81e4c767e703.jpg" alt="Lesley Angelic Agent">
+                <div class="skin-type-badge">LEGEND</div>
+                <div class="skin-card-info">
+                    <h3>Lesley</h3>
+                    <p>Angelic Agent</p>
+                </div>
+            </div>
+             <div class="skin-card">
+                <img src="https://wallpaperaccess.com/full/7086877.jpg" alt="Layla Miss Hikari">
+                <div class="skin-type-badge">ASPIRANTS</div>
+                <div class="skin-card-info">
+                    <h3>Layla</h3>
+                    <p>Miss Hikari</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://images6.alphacoders.com/133/1332714.jpeg" alt="Melissa Nobara Kugisaki">
+                <div class="skin-type-badge">JJK</div>
+                <div class="skin-card-info">
+                    <h3>Melissa</h3>
+                    <p>Nobara Kugisaki</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://i.ytimg.com/vi/D0xQ3q1Lw5c/maxresdefault.jpg" alt="Benedetta Ducati">
+                <div class="skin-type-badge">DUCATI</div>
+                <div class="skin-card-info">
+                    <h3>Benedetta</h3>
+                    <p>Panigale V4S Rider</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://i.ytimg.com/vi/u6kSgP0E1jI/maxresdefault.jpg" alt="Hayabusa Shura">
+                <div class="skin-type-badge">11.11 EVENT</div>
+                <div class="skin-card-info">
+                    <h3>Hayabusa</h3>
+                    <p>Shura</p>
+                </div>
+            </div>
+            <div class="skin-card">
+                <img src="https://images.hdqwalls.com/download/alucard-obsidian-blade-ml-5k-j7-1280x720.jpg" alt="Alucard Obsidian Blade">
+                <div class="skin-type-badge">LEGEND</div>
+                <div class="skin-card-info">
+                    <h3>Alucard</h3>
+                    <p>Obsidian Blade</p>
+                </div>
+            </div>
+             <div class="skin-card">
+                <img src="https://i.pinimg.com/originals/99/30/a4/9930a47321e105e46ab68b375bce343c.jpg" alt="Lunox Eyes of Eternity">
+                <div class="skin-type-badge">ANNUAL STARLIGHT</div>
+                <div class="skin-card-info">
+                    <h3>Lunox</h3>
+                    <p>Eyes of Eternity</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<section class="main-feature">
-  <img src="https://i.imgur.com/hMJmxwh.jpg" alt="Benedetta Ducati">
-  <img src="https://i.imgur.com/y6Nf4Td.jpg" alt="Revamped Saber">
-  <img src="https://i.imgur.com/0y0IxXb.jpg" alt="Layla Ducati">
-</section>
+    <audio id="backgroundMusic" loop>
+        <source src="background-music.mp3" type="audio/mpeg">
+    </audio>
 
-<div class="exchange-bar">💎 ID: *****413 | Exchange Tickets: 12500 💎</div>
+    <audio id="clickSound">
+        <source src="click-sound.mp3" type="audio/mpeg">
+    </audio>
 
-<section class="skins">
-  <div class="card">
-    <img src="https://i.imgur.com/S2LtvUQ.jpg" alt="Benedetta">
-    <span class="price">1250</span>
-    <div class="info"><h3>Benedetta – Ducati Rider</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
-  </div>
-  <div class="card">
-    <img src="https://i.imgur.com/NtbMSn1.jpg" alt="Irithel">
-    <span class="price">1250</span>
-    <div class="info"><h3>Irithel – Ducati SP Rider</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
-  </div>
-  <div class="card">
-    <img src="https://i.imgur.com/1s0EqOv.jpg" alt="Layla">
-    <span class="price">1250</span>
-    <div class="info"><h3>Layla – Ducati VS Rider</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
-  </div>
-  <div class="card">
-    <img src="https://i.imgur.com/aTz5QKI.jpg" alt="Miya">
-    <span class="price">2550</span>
-    <div class="info"><h3>Miya – Modern Butterfly</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
-  </div>
-  <div class="card">
-    <img src="https://i.imgur.com/F93GfnM.jpg" alt="Saber">
-    <span class="price">2550</span>
-    <div class="info"><h3>Saber – Codename Storm</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
-  </div>
-  <div class="card">
-    <img src="https://i.imgur.com/CXhBokU.jpg" alt="Alucard">
-    <span class="price">2550</span>
-    <div class="info"><h3>Alucard – Obsidian Blade</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
-  </div>
-  <div class="card">
-    <img src="https://i.imgur.com/qbeoJuo.jpg" alt="Franco">
-    <span class="price">2550</span>
-    <div class="info"><h3>Franco – King of Hell</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
-  </div>
-</section>
+    <script>
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const clickSound = document.getElementById('clickSound');
+        const skinCards = document.querySelectorAll('.skin-card');
 
-<audio id="bgmusic" autoplay loop>
-  <source src="https://files.catbox.moe/69tv1y.mp3" type="audio/mpeg">
-</audio>
-<audio id="clicksound">
-  <source src="https://files.catbox.moe/q4nqno.mp3" type="audio/mpeg">
-</audio>
+        // Play background music on first user interaction
+        document.body.addEventListener('click', () => {
+            if (backgroundMusic.paused) {
+                backgroundMusic.volume = 0.3; // Adjust volume (0.0 to 1.0)
+                backgroundMusic.play();
+            }
+        }, { once: true });
 
-<script>
-function buySkin(){
-  const click = document.getElementById("clicksound");
-  click.currentTime = 0;
-  click.play();
-  alert("✅ Skin purchased successfully!");
-}
-</script>
-
+        // Add click sound to all skin cards
+        skinCards.forEach(card => {
+            card.addEventListener('click', () => {
+                clickSound.currentTime = 0; // Rewind to the start
+                clickSound.play();
+            });
+        });
+    </script>
 </body>
 </html>
