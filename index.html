@@ -1,345 +1,195 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mobile Legends — Event Shop (Demo with Sound)</title>
-  <meta name="description" content="MLBB Event Shop demo — static HTML mockup with sound effects" />
-  <style>
-    :root{
-      --bg:#0b0b0b; --card:#0f1113; --muted:#9aa0a6; --accent:#ff4757;
-      --glass: rgba(255,255,255,0.04); --radius:12px; --maxw:1100px; --gap:18px;
-      --card-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;background:linear-gradient(180deg,#050505 0%, #0a0b0c 100%);color:#e6eef6;
-      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.25;
-      padding:32px 20px;display:flex;justify-content:center;
-    }
-    .site{width:100%;max-width:var(--maxw);}
-    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;}
-    .brand{display:flex;gap:12px;align-items:center;}
-    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,#f7b731,#ff6b6b);display:flex;align-items:center;justify-content:center;font-weight:800;color:#0a0a0a;font-size:18px;box-shadow: 0 6px 18px rgba(0,0,0,0.6);}
-    .brand h1{font-size:18px;margin:0}
-    .brand small{display:block;color:var(--muted);font-size:12px}
-    .store-links{display:flex;gap:8px;align-items:center;}
-    .store{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;background:var(--glass);backdrop-filter:blur(4px);font-size:13px;color:var(--muted);text-decoration:none;}
-    .banner{background: radial-gradient(800px 240px at 10% 0%, rgba(255,71,87,0.08), transparent 10%), linear-gradient(180deg, rgba(255,71,87,0.08), rgba(0,0,0,0.0)), linear-gradient(90deg, #1b0a19, #0c1020);border-radius:16px;padding:22px;display:flex;gap:18px;align-items:center;box-shadow: var(--card-shadow); margin-bottom:22px;overflow:hidden;}
-    .banner__left{flex:1;min-width:0}
-    .banner__title{font-size:20px;font-weight:800;margin:0 0 8px 0;letter-spacing:0.6px;}
-    .banner__subtitle{color:var(--muted);margin:0 0 14px 0;font-size:13px}
-    .banner__cta{display:flex;gap:10px;align-items:center;}
-    .cta-btn{background:linear-gradient(180deg,#ff6b6b,#ff4757);color:white;padding:10px 16px;border-radius:10px;border:0;cursor:pointer;font-weight:700;box-shadow:0 6px 18px rgba(255,71,87,0.12);}
-    .banner__right{width:320px;height:140px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-    .banner__right .mock-hero{width:100%;height:100%;background:linear-gradient(120deg,#7f1d1d,#2b0a36);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:rgba(255,255,255,0.95);opacity:0.95;}
-    .section-title{display:flex;justify-content:space-between;align-items:end;margin:6px 0 12px}
-    .section-title h2{margin:0;font-size:15px}
-    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);}
-    .card{background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:14px;padding:12px;box-shadow:var(--card-shadow);position:relative;overflow:hidden;display:flex;flex-direction:column;gap:10px;}
-    .card__img{height:160px;border-radius:10px;background-size:cover;background-position:center;box-shadow: inset 0 -20px 40px rgba(0,0,0,0.45);position:relative;overflow:hidden;}
-    .price{display:inline-flex;gap:8px;align-items:center;font-weight:800;background:rgba(15,15,15,0.6);padding:6px 10px;border-radius:999px;position:absolute;left:12px;bottom:12px;font-size:13px;backdrop-filter: blur(4px);}
-    .card__name{font-weight:800;font-size:14px;margin:0}
-    .card__meta{color:var(--muted);font-size:12px;margin:0}
-    .card__actions{display:flex;gap:8px;margin-top:auto}
-    .btn{padding:8px 10px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
-    .btn.secondary{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.04)}
-    .btn.primary{background:var(--accent);color:white}
-    @media (max-width:980px){.grid{grid-template-columns:repeat(3,1fr)}.banner__right{display:none}}
-    @media (max-width:720px){body{padding:18px 12px}.grid{grid-template-columns:repeat(2,1fr)}.logo{width:48px;height:48px}}
-    @media (max-width:420px){.grid{grid-template-columns:1fr}}
-    .modal-backdrop{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,12,0.6);z-index:40;padding:20px;}
-    .modal{background:linear-gradient(180deg,#0f1113,#0b0c0d);padding:18px;border-radius:14px;width:100%;max-width:480px;box-shadow:0 20px 60px rgba(0,0,0,0.7);}
-    .modal h3{margin:0 0 8px 0}
-    .modal p{color:var(--muted);font-size:13px;margin:0 0 14px 0}
-    .modal__foot{display:flex;gap:8px;justify-content:flex-end;margin-top:14px}
-    .card:hover{transform:translateY(-6px);transition:transform 220ms}
-    .btn:active{transform:translateY(1px)}
-    /* audio controls small toggle */
-    .audio-toggle{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:10px;color:var(--muted);font-size:13px;border:0;cursor:pointer}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MLBB Collab Event Shop</title>
+<style>
+  * {margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+  body {
+    background: url('https://wallpapercave.com/wp/wp6712879.jpg') no-repeat center center/cover;
+    color:#fff;
+    overflow-x:hidden;
+  }
+  header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(0,0,0,0.8);
+    padding:10px 20px;
+    box-shadow:0 0 10px #ff0000;
+  }
+  header img {
+    height:45px;
+  }
+  .store-btns img {
+    height:35px;
+    margin-left:10px;
+  }
+  .banner {
+    text-align:center;
+    background:linear-gradient(90deg,#e10000,#ff6600);
+    padding:15px;
+    font-size:1.4rem;
+    font-weight:bold;
+    text-shadow:0 0 8px #000;
+    letter-spacing:1px;
+  }
+  .main-feature {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    background:rgba(0,0,0,0.75);
+    padding:20px;
+  }
+  .main-feature img {
+    width:250px;
+    margin:10px;
+    border-radius:15px;
+    box-shadow:0 0 15px #ff3300;
+    transition:0.3s;
+  }
+  .main-feature img:hover {
+    transform:scale(1.05);
+    box-shadow:0 0 25px #ffd000;
+  }
+  .exchange-bar {
+    text-align:center;
+    background:rgba(255,255,255,0.1);
+    color:#ffd;
+    padding:8px;
+    font-size:0.9rem;
+  }
+  .skins {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    padding:30px;
+  }
+  .card {
+    background:rgba(0,0,0,0.7);
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:10px;
+    overflow:hidden;
+    transition:0.3s;
+    position:relative;
+  }
+  .card:hover {
+    transform:scale(1.05);
+    box-shadow:0 0 20px #ff6600;
+  }
+  .card img {
+    width:100%;
+    height:220px;
+    object-fit:cover;
+  }
+  .price {
+    position:absolute;
+    bottom:8px;
+    right:10px;
+    background:rgba(0,0,0,0.7);
+    padding:5px 10px;
+    border-radius:6px;
+    color:#00eaff;
+    font-weight:bold;
+    font-size:0.9rem;
+  }
+  .info {
+    text-align:center;
+    padding:10px;
+  }
+  .info h3 {
+    font-size:1rem;
+    margin-bottom:8px;
+  }
+  .buy-btn {
+    background:linear-gradient(90deg,#ffcc00,#ff6600);
+    color:#000;
+    border:none;
+    padding:8px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.2s;
+  }
+  .buy-btn:hover {
+    background:linear-gradient(90deg,#ffe066,#ff8533);
+  }
+</style>
 </head>
 <body>
-  <div class="site" role="main">
 
-    <!-- top -->
-    <div class="topbar" aria-hidden="false">
-      <div class="brand">
-        <div class="logo">ML</div>
-        <div>
-          <h1>Mobile Legends: Bang Bang</h1>
-          <small>Official — Event Shop (Demo)</small>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:10px;align-items:center">
-        <button id="audio-toggle" class="audio-toggle" title="Toggle sound">🔊 Sound On</button>
-        <div class="store-links">
-          <a class="store" href="#" aria-label="App Store">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="opacity:.95"><rect x="2" y="2" width="20" height="20" rx="4" fill="#fff" opacity="0.12"/></svg>App Store
-          </a>
-          <a class="store" href="#" aria-label="Google Play">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="opacity:.95"><rect x="2" y="2" width="20" height="20" rx="4" fill="#fff" opacity="0.12"/></svg>Google Play
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- banner -->
-    <section class="banner" aria-label="Exclusive event banner">
-      <div class="banner__left">
-        <h2 class="banner__title">EXCLUSIVE EVENT — COLLAB SKINS NOW AVAILABLE</h2>
-        <p class="banner__subtitle">Join and get your exclusive skins. Limited time exchange — Don’t miss out!</p>
-
-        <div class="banner__cta">
-          <button class="cta-btn" onclick="openModal('event')">Open Event</button>
-          <button class="btn secondary" onclick="window.scrollTo({top:document.querySelector('.grid').offsetTop-20, behavior:'smooth'})">View Skins</button>
-        </div>
-      </div>
-
-      <div class="banner__right" aria-hidden="true">
-        <div class="mock-hero">EVENT HERO ART (replace with image)</div>
-      </div>
-    </section>
-
-    <!-- skin list -->
-    <div class="section-title">
-      <h2>Featured Skins</h2>
-      <small style="color:var(--muted)">Limited-time skins and classic favorites</small>
-    </div>
-
-    <div class="grid" id="gallery">
-      <!-- Cards (same as previous demo) -->
-      <div class="card" data-hero="Benedetta">
-        <div class="card__img" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1509537255452-3fda3d2f9a43?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder');">
-          <div class="price">1250 <span style="font-size:11px;margin-left:6px;color:var(--muted)">Epic</span></div>
-        </div>
-        <div>
-          <p class="card__name">Benedetta — Paragon V5 Rider</p>
-          <p class="card__meta">Exclusive collab skin • 1250</p>
-        </div>
-        <div class="card__actions">
-          <button class="btn primary" onclick="playClick(); openModal('Benedetta', 1250)">Buy</button>
-          <button class="btn secondary" onclick="playClick(); showPreview(this)">Preview</button>
-        </div>
-      </div>
-
-      <div class="card" data-hero="Irithel">
-        <div class="card__img" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1519337265831-281ec6cc8514?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder');">
-          <div class="price">1250 <span style="font-size:11px;margin-left:6px;color:var(--muted)">Epic</span></div>
-        </div>
-        <div>
-          <p class="card__name">Irithel — Aurora Rider</p>
-          <p class="card__meta">Limited edition • 1250</p>
-        </div>
-        <div class="card__actions">
-          <button class="btn primary" onclick="playClick(); openModal('Irithel', 1250)">Buy</button>
-          <button class="btn secondary" onclick="playClick(); showPreview(this)">Preview</button>
-        </div>
-      </div>
-
-      <div class="card" data-hero="Layla">
-        <div class="card__img" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder');">
-          <div class="price">1250 <span style="font-size:11px;margin-left:6px;color:var(--muted)">Epic</span></div>
-        </div>
-        <div>
-          <p class="card__name">Layla — Cosmic V6 Rider</p>
-          <p class="card__meta">Hot pick • 1250</p>
-        </div>
-        <div class="card__actions">
-          <button class="btn primary" onclick="playClick(); openModal('Layla', 1250)">Buy</button>
-          <button class="btn secondary" onclick="playClick(); showPreview(this)">Preview</button>
-        </div>
-      </div>
-
-      <div class="card" data-hero="Miya">
-        <div class="card__img" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder');">
-          <div class="price">2550 <span style="font-size:11px;margin-left:6px;color:var(--muted)">Legendary</span></div>
-        </div>
-        <div>
-          <p class="card__name">Miya — Midnight Butterfly</p>
-          <p class="card__meta">Legendary • 2550</p>
-        </div>
-        <div class="card__actions">
-          <button class="btn primary" onclick="playClick(); openModal('Miya', 2550)">Buy</button>
-          <button class="btn secondary" onclick="playClick(); showPreview(this)">Preview</button>
-        </div>
-      </div>
-
-      <div class="card" data-hero="Saber">
-        <div class="card__img" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder');">
-          <div class="price">2550 <span style="font-size:11px;margin-left:6px;color:var(--muted)">Legendary</span></div>
-        </div>
-        <div>
-          <p class="card__name">Saber — Cosmic Blade</p>
-          <p class="card__meta">Legendary • 2550</p>
-        </div>
-        <div class="card__actions">
-          <button class="btn primary" onclick="playClick(); openModal('Saber', 2550)">Buy</button>
-          <button class="btn secondary" onclick="playClick(); showPreview(this)">Preview</button>
-        </div>
-      </div>
-
-      <div class="card" data-hero="Alucard">
-        <div class="card__img" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder');">
-          <div class="price">2550 <span style="font-size:11px;margin-left:6px;color:var(--muted)">Legendary</span></div>
-        </div>
-        <div>
-          <p class="card__name">Alucard — Crimson Blade</p>
-          <p class="card__meta">Legendary • 2550</p>
-        </div>
-        <div class="card__actions">
-          <button class="btn primary" onclick="playClick(); openModal('Alucard', 2550)">Buy</button>
-          <button class="btn secondary" onclick="playClick(); showPreview(this)">Preview</button>
-        </div>
-      </div>
-
-      <div class="card" data-hero="Franco">
-        <div class="card__img" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1533750349088-cd871a92f312?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder');">
-          <div class="price">2550 <span style="font-size:11px;margin-left:6px;color:var(--muted)">Legendary</span></div>
-        </div>
-        <div>
-          <p class="card__name">Franco — King of Hook</p>
-          <p class="card__meta">Classic legendary • 2550</p>
-        </div>
-        <div class="card__actions">
-          <button class="btn primary" onclick="playClick(); openModal('Franco', 2550)">Buy</button>
-          <button class="btn secondary" onclick="playClick(); showPreview(this)">Preview</button>
-        </div>
-      </div>
-
-    </div>
+<header>
+  <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/Mobile_Legends_Bang_Bang_logo.png" alt="MLBB Logo">
+  <div class="store-btns">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Google_Play_Store_badge_EN.svg" alt="PlayStore">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="AppStore">
   </div>
+</header>
 
-  <!-- modal -->
-  <div id="modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal" role="document">
-      <h3 id="modal-title">Buy Skin</h3>
-      <p id="modal-desc">Proceed to exchange. (Demo — no real server connected)</p>
-      <div style="display:flex;gap:8px;margin-top:12px;">
-        <input id="player-id" placeholder="Enter MLBB ID (demo only)" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit" />
-      </div>
-      <div class="modal__foot">
-        <button class="btn secondary" onclick="playClick(); closeModal()">Cancel</button>
-        <button class="btn primary" onclick="playConfirm()">Confirm</button>
-      </div>
-    </div>
+<div class="banner">🔥 EXCLUSIVE EVENT – COLLAB SKINS NOW AVAILABLE 🔥<br>Join and Get Your Exclusive Skins Now!</div>
+
+<section class="main-feature">
+  <img src="https://i.imgur.com/hMJmxwh.jpg" alt="Benedetta Ducati">
+  <img src="https://i.imgur.com/y6Nf4Td.jpg" alt="Revamped Saber">
+  <img src="https://i.imgur.com/0y0IxXb.jpg" alt="Layla Ducati">
+</section>
+
+<div class="exchange-bar">💎 ID: *****413 | Exchange Tickets: 12500 💎</div>
+
+<section class="skins">
+  <div class="card">
+    <img src="https://i.imgur.com/S2LtvUQ.jpg" alt="Benedetta">
+    <span class="price">1250</span>
+    <div class="info"><h3>Benedetta – Ducati Rider</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
   </div>
+  <div class="card">
+    <img src="https://i.imgur.com/NtbMSn1.jpg" alt="Irithel">
+    <span class="price">1250</span>
+    <div class="info"><h3>Irithel – Ducati SP Rider</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/1s0EqOv.jpg" alt="Layla">
+    <span class="price">1250</span>
+    <div class="info"><h3>Layla – Ducati VS Rider</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/aTz5QKI.jpg" alt="Miya">
+    <span class="price">2550</span>
+    <div class="info"><h3>Miya – Modern Butterfly</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/F93GfnM.jpg" alt="Saber">
+    <span class="price">2550</span>
+    <div class="info"><h3>Saber – Codename Storm</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/CXhBokU.jpg" alt="Alucard">
+    <span class="price">2550</span>
+    <div class="info"><h3>Alucard – Obsidian Blade</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
+  </div>
+  <div class="card">
+    <img src="https://i.imgur.com/qbeoJuo.jpg" alt="Franco">
+    <span class="price">2550</span>
+    <div class="info"><h3>Franco – King of Hell</h3><button class="buy-btn" onclick="buySkin()">Buy</button></div>
+  </div>
+</section>
 
-  <!-- AUDIO ELEMENTS (point to files in /assets/) -->
-  <audio id="sfx-click" src="assets/click.mp3" preload="auto"></audio>
-  <audio id="sfx-confirm" src="assets/confirm.mp3" preload="auto"></audio>
-  <audio id="sfx-banner" src="assets/banner-loop.mp3" loop preload="metadata"></audio>
+<audio id="bgmusic" autoplay loop>
+  <source src="https://files.catbox.moe/69tv1y.mp3" type="audio/mpeg">
+</audio>
+<audio id="clicksound">
+  <source src="https://files.catbox.moe/q4nqno.mp3" type="audio/mpeg">
+</audio>
 
-  <script>
-    // --- Sound control & modal logic ---
-    const sfxClick = document.getElementById('sfx-click');
-    const sfxConfirm = document.getElementById('sfx-confirm');
-    const sfxBanner = document.getElementById('sfx-banner');
-    const modal = document.getElementById('modal');
-    const title = document.getElementById('modal-title');
-    const desc = document.getElementById('modal-desc');
-    const audioToggle = document.getElementById('audio-toggle');
-    let audioEnabled = true;
-    let current = {hero:null, price:null};
+<script>
+function buySkin(){
+  const click = document.getElementById("clicksound");
+  click.currentTime = 0;
+  click.play();
+  alert("✅ Skin purchased successfully!");
+}
+</script>
 
-    // Try to autoplay banner sound only if allowed — many browsers block autoplay with sound
-    function tryPlayBanner(){
-      if(!audioEnabled) return;
-      // play muted first then unmute on user interaction — better to start on first click
-      sfxBanner.volume = 0.35;
-      sfxBanner.play().catch(()=>{/* autoplay blocked; will start after user interaction */});
-    }
-    // call once (may be blocked until user interacts)
-    tryPlayBanner();
-
-    // Toggle button
-    audioToggle.addEventListener('click', ()=>{
-      audioEnabled = !audioEnabled;
-      audioToggle.textContent = audioEnabled ? '🔊 Sound On' : '🔈 Sound Off';
-      if(!audioEnabled){
-        sfxBanner.pause(); sfxClick.pause(); sfxConfirm.pause();
-      } else {
-        // resume banner softly
-        tryPlayBanner();
-      }
-    });
-
-    // play click safely
-    function playClick(){
-      if(!audioEnabled) return;
-      // small restart to make overlapping clicks audible
-      sfxClick.currentTime = 0;
-      sfxClick.play().catch(()=>{/* ignore autoplay errors */});
-    }
-
-    function playConfirmSound(){
-      if(!audioEnabled) return;
-      sfxConfirm.currentTime = 0;
-      sfxConfirm.play().catch(()=>{/* ignore */});
-    }
-
-    // modal open/close
-    function openModal(hero='Event', price=0){
-      current.hero = hero; current.price = price;
-      title.textContent = hero + (price? (' — ' + price + ' BP') : '');
-      desc.textContent = price ? ('Exchange ' + price + ' BP to get ' + hero + ' (Demo)') : 'Event details (Demo)';
-      modal.style.display = 'flex';
-      modal.setAttribute('aria-hidden','false');
-      // play small sound when modal opens
-      playClick();
-    }
-    function closeModal(){
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden','true');
-      document.getElementById('player-id').value = '';
-    }
-
-    // confirm buy -> play confirm sound + alert
-    function playConfirm(){
-      const id = document.getElementById('player-id').value.trim();
-      if(!id){
-        alert('Please enter MLBB ID (demo only).');
-        playClick();
-        return;
-      }
-      // demo behaviour
-      playConfirmSound();
-      // optional: brief delay to allow sound to start
-      setTimeout(()=> {
-        alert('Thank you! Demo exchange confirmed for ' + current.hero + ' — ID: ' + id + ' — Price: ' + current.price);
-      }, 160);
-      closeModal();
-    }
-
-    // preview (simple)
-    function showPreview(btn){
-      const card = btn.closest('.card');
-      const hero = card.dataset.hero || 'Hero';
-      alert('Preview: ' + hero + ' (demo preview). Replace images with real art for full look.');
-    }
-
-    // close modal when clicking backdrop
-    modal.addEventListener('click', (e)=>{
-      if(e.target === modal) closeModal();
-    });
-    // Escape closes modal
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape' && modal.style.display === 'flex') closeModal();
-    });
-
-    // Ensure first user interaction enables audio — many browsers require gesture
-    ['click','keydown','touchstart'].forEach(evt=>{
-      document.addEventListener(evt, function once(){
-        // start banner muted briefly then unmute if audioEnabled
-        if(audioEnabled && sfxBanner.paused){
-          sfxBanner.play().catch(()=>{});
-        }
-        document.removeEventListener(evt, once);
-      });
-    });
-  </script>
 </body>
 </html>
