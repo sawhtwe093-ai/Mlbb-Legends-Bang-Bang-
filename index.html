@@ -1,264 +1,523 @@
+<!-- 
+  ဤ HTML ဖိုင်သည် Mobile Legends Bang Bang Event Page ၏ ပုံစံကို အတုယူထားပြီး၊ 
+  အသုံးပြုသူမှ စာသား၊ ပုံများနှင့် အသံများကို မိမိဘာသာ ပြင်ဆင်နိုင်ရန် 
+  "Settings Modal" ကို ထည့်သွင်းထားပါသည်။
+  
+  လုံခြုံရေးစည်းမျဉ်းများအရ၊ ဤ Template သည် Phishing လုပ်ဆောင်ချက်များအတွက် 
+  မရည်ရွယ်ပါ၊ အချက်အလက်များကို သိမ်းဆည်းခြင်းမရှိပါ။ 
+-->
 <!DOCTYPE html>
 <html lang="my">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MLBB Rare Skins Collection</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title id="pageTitle"> MobileLegendsBangBang official Myanmar only event shop</title>
+    <!-- Tailwind CSS ကို အသုံးပြုထားသည် -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
-            background-color: #0a0a1a;
-            background-image: linear-gradient(rgba(10, 10, 26, 0.8), rgba(10, 10, 26, 1)), url('https://wallpapercave.com/wp/wp6434462.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            color: #f0f0f0;
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0c0f; 
         }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            text-align: center;
+        .main-container {
+            max-width: 600px; 
+            margin: 0 auto;
+            min-height: 100vh;
         }
-
-        .main-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            color: #FFC300;
-            text-shadow: 0 0 10px #FFC300, 0 0 20px #FF5733;
-            margin-bottom: 10px;
+        .text-shadow-custom {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: #ccc;
-            margin-bottom: 30px;
+        /* Modal Style */
+        .modal {
+            display: none; /* အစကတည်းက ပျောက်နေရမည် */
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+            z-index: 50;
         }
-
-        .skin-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .skin-card {
-            background: linear-gradient(145deg, #1e1e3f, #1a1a33);
-            border: 2px solid #4a4a8a;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .skin-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(255, 195, 0, 0.3);
-            border-color: #FFC300;
-        }
-
-        .skin-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            object-position: top;
-            border-bottom: 2px solid #4a4a8a;
-        }
-        
-        .skin-card-info {
-            padding: 15px;
-        }
-
-        .skin-card h3 {
-            margin: 0 0 5px 0;
-            color: #ffffff;
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        .skin-card p {
-            margin: 0;
-            color: #b0b0d0;
-            font-size: 0.9rem;
-        }
-
-        .skin-type-badge {
-            position: absolute;
+        .edit-icon {
+            position: fixed;
             top: 10px;
             right: 10px;
-            background-color: rgba(255, 87, 51, 0.85);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px black;
+            z-index: 60;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: #25253b;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+        }
+        .edit-icon:hover {
+            background-color: #4a4a6e;
+            transform: scale(1.1);
         }
     </style>
 </head>
-<body>
+<body class="text-white">
+    
+    <!-- EDIT SETTINGS ICON -->
+    <button onclick="showSettingsModal()" class="edit-icon text-yellow-400">
+        <!-- Edit Icon (Lucide-react/inline SVG equivalent for 'Settings') -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0-.33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1.51-1V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82 1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+    
+    <!-- Main Content Container (Event Page) -->
+    <div class="main-container shadow-2xl bg-gray-900 border-x border-gray-800">
 
-    <div class="container">
-        <h1 class="main-title">MLBB RARE & EXPENSIVE SKINS</h1>
-        <p class="subtitle">MLBB ၏ အရှားပါးဆုံးနှင့် ဈေးအကြီးဆုံး Skin များ စုစည်းမှု <br> (နောက်ခံတေးဂီတစတင်ရန် စာမျက်နှာကို တစ်ချက်နှိပ်ပါ)</p>
+        <!-- Header/Navigation Bar -->
+        <header class="flex justify-between items-center p-3 bg-black/50 border-b border-red-700">
+            <div class="flex items-center space-x-2">
+                <div class="text-2xl font-black text-yellow-500">
+                    M<span class="text-red-600">L</span>
+                </div>
+                <h1 class="text-xs font-semibold tracking-wider text-gray-300">
+                    MOBILE LEGENDS <br> EVENT
+                </h1>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button onclick="playSound()" class="text-sm px-2 py-1 bg-blue-700 rounded-lg hidden sm:block">App Store</button>
+                <button onclick="playSound()" class="text-sm px-2 py-1 bg-green-600 rounded-lg hidden sm:block">Google Play</button>
+                <button onclick="playSound()" class="text-white text-2xl">☰</button>
+            </div>
+        </header>
 
-        <div class="skin-grid">
-            <div class="skin-card">
-                <img src="https://i.ytimg.com/vi/W9sVjdj1m9Y/maxresdefault.jpg" alt="Gusion Cosmic Gleam">
-                <div class="skin-type-badge">LEGEND</div>
-                <div class="skin-card-info">
-                    <h3>Gusion</h3>
-                    <p>Cosmic Gleam</p>
+        <!-- Exclusive Event Banner Section (Dynamic Text/Image) -->
+        <section class="p-4 pt-6 text-center" id="bannerSection" style="background-image: url('https://placehold.co/600x350/000000/F00?text=EXCLUSIVE+EVENT+BANNER'); background-size: cover; background-position: center; min-height: 300px; position: relative;">
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative z-10">
+                <p class="text-xl font-bold text-red-500 mb-2 text-shadow-custom" id="bannerSubTitle">EXCLUSIVE EVENT</p>
+                <h2 class="text-4xl sm:text-5xl font-extrabold text-yellow-400 mb-4 text-shadow-custom leading-tight" id="bannerTitle">
+                    COLLAB SKINS <br class="sm:hidden"> NOW AVAILABLE
+                </h2>
+                <p class="text-sm sm:text-base text-gray-200 text-shadow-custom mb-8" id="bannerDescription">
+                    JOIN AND GET YOUR EXCLUSIVE SKINS NOW
+                </p>
+
+                <!-- Input for ID -->
+                <div class="w-full max-w-sm mx-auto p-2 bg-gray-800 rounded-xl border-4 border-yellow-500 shadow-lg mb-4">
+                    <input type="text" id="idInputPlaceholder" placeholder="ID: ********* | ကျေးဇူးပြု၍ သင်၏ ID ကို ထည့်ပါ" 
+                           class="w-full bg-transparent text-center placeholder-gray-400 text-yellow-400 focus:outline-none text-sm py-1">
+                </div>
+                
+                <button onclick="showLoginModal(); playSound();" id="startButton" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full transition duration-300 shadow-red-900 shadow-md">
+                    စတင်ရန်
+                </button>
+            </div>
+        </section>
+
+        <!-- Skin Collection Section 1 - Dynamic Cards -->
+        <section class="p-4 pt-6">
+            <h3 class="text-xl font-bold text-center text-red-500 mb-6 border-b border-red-700 pb-2" id="section1Title">အထူးလျှော့စျေးများ</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="skinCardsContainer">
+                
+                <!-- Card 1 -->
+                <div class="skin-card bg-gray-800 rounded-lg overflow-hidden shadow-lg border-2 border-transparent hover:border-red-500 transition duration-300">
+                    <img src="https://placehold.co/300x400/1e293b/fff?text=Skin+1" alt="Skin 1" id="skinImage1" class="w-full h-auto">
+                    <div class="p-2 text-center">
+                        <p class="text-lg font-bold text-red-400" id="skinPrice1">500 <span class="text-xs text-gray-400">Ticket</span></p>
+                        <button onclick="showLoginModal(); playSound();" class="mt-2 w-full text-xs bg-red-600 py-1 rounded-md hover:bg-red-700" id="buyButton1">ဝယ်ယူရန်</button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="skin-card bg-gray-800 rounded-lg overflow-hidden shadow-lg border-2 border-transparent hover:border-red-500 transition duration-300">
+                    <img src="https://placehold.co/300x400/1e293b/fff?text=Skin+2" alt="Skin 2" id="skinImage2" class="w-full h-auto">
+                    <div class="p-2 text-center">
+                        <p class="text-lg font-bold text-red-400" id="skinPrice2">500<span class="text-xs text-gray-400">>Ticket</span></p>
+                        <button onclick="showLoginModal(); playSound();" class="mt-2 w-full text-xs bg-red-600 py-1 rounded-md hover:bg-red-700" id="buyButton2">ဝယ်ယူရန်</button>
+                    </div>
+                </div>
+                
+                <!-- Card 3 (Static Placeholder) -->
+                <div class="skin-card bg-gray-800 rounded-lg overflow-hidden shadow-lg border-2 border-transparent hover:border-red-500 transition duration-300">
+                    <img src="https://placehold.co/300x400/1e293b/fff?text=Skin+C" alt="Skin 3" class="w-full h-auto">
+                    <div class="p-2 text-center">
+                        <p class="text-lg font-bold text-red-400">550<span class="text-xs text-gray-400"> Ticket</span></p>
+                        <button onclick="showLoginModal(); playSound();" class="mt-2 w-full text-xs bg-red-600 py-1 rounded-md hover:bg-red-700">ဝယ်ယူရန်</button>
+                    </div>
+                </div>
+
+                <!-- Card 4 (Static Placeholder) -->
+                <div class="skin-card bg-gray-800 rounded-lg overflow-hidden shadow-lg border-2 border-transparent hover:border-red-500 transition duration-300">
+                    <img src="https://placehold.co/300x400/1e293b/fff?text=Skin+D" alt="Skin 4" class="w-full h-auto">
+                    <div class="p-2 text-center">
+                        <p class="text-lg font-bold text-red-400">550<span class="text-xs text-gray-400">Ticket</span></p>
+                        <button onclick="showLoginModal(); playSound();" class="mt-2 w-full text-xs bg-red-600 py-1 rounded-md hover:bg-red-700">ဝယ်ယူရန်</button>
+                    </div>
                 </div>
             </div>
-            <div class="skin-card">
-                <img src="https://i.pinimg.com/originals/1a/0c/b9/1a0cb98522e84d33457a4a2b9f665551.jpg" alt="Granger Starfall Knight">
-                 <div class="skin-type-badge">LEGEND</div>
-                <div class="skin-card-info">
-                    <h3>Granger</h3>
-                    <p>Starfall Knight</p>
-                </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs p-4 mt-8 text-gray-500 border-t border-gray-800">
+            <p id="footerText1">&copy; 2025 MobileLegendsBangBang</p>
+            <p class="mt-1" id="footerText2">MobileLegendsBangBang Official</p>
+        </footer>
+    </div>
+
+    <!-- ------------------------------------------------------------------- -->
+    <!-- 1. LOGIN MODAL (Non-Functional) -->
+    <!-- ------------------------------------------------------------------- -->
+    <div id="loginModal" class="modal fixed inset-0 flex items-center justify-center p-4">
+        <div class="bg-gray-800 w-full max-w-sm p-6 rounded-xl shadow-2xl border-ဝင်ရေd-600 relative">
+            <button onclick="hideLoginModal(); playSound();" class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl font-bold transition">&times;</button>
+            
+            <h2 class="text-2xl font-bold text-center text-white mb-4">
+                <span class="text-red-500">A C C O U N T</span> <br> LOGIN
+            </h2>
+
+            <div class="flex flex-col space-y-3 mb-6">
+                <button onclick="playSound()" class="flex items-center justify-center w-full p-3 bg-blue-700 hover:bg-blue-800 rounded-lg font-semibold transition">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h8v-7h-3v-3h3v-2c0-3 1.8-4.5 4.5-4.5.9 0 1.8.1 2.7.3v3h-1.8c-1.4 0-1.7.7-1.7 1.7v2h3l-.5 3h-2.5v7h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                   သင့် Facebook ဖြင့် ဝင်ရောက်ရန်
+                </button>
+                <button onclick="playSound()" class="flex items-center justify-center w-full p-3 bg-red-600 hover:bg-red-700 rounded-lg font-semibold transition">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                   သင့် Email ဖြင့် ဝင်ရောက်ရန်
+                </button>
             </div>
-            <div class="skin-card">
-                <img src="https://www.xtrafondos.com/en/descargar.php?id=7900&resolucion=1280x720" alt="Chou Iori Yagami">
-                 <div class="skin-type-badge">KOF</div>
-                <div class="skin-card-info">
-                    <h3>Chou</h3>
-                    <p>Iori Yagami</p>
+            
+            <hr class="border-gray-700 mb-6">
+
+            <form onsubmit="handleLoginSubmit(event)">
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email / Phone Number</label>
+                    <input type="text" id="email" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-red-500 focus:border-red-500 transition">
                 </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://images.hdqwalls.com/download/fanny-blade-of-kibou-5k-w9-1280x720.jpg" alt="Fanny Blade of Kibou">
-                 <div class="skin-type-badge">ASPIRANTS</div>
-                <div class="skin-card-info">
-                    <h3>Fanny</h3>
-                    <p>Blade of Kibou</p>
+                <div class="mb-6">
+                    <label for="password" class="block text-sm font-medium text-gray-300 mb-1">Password</label>
+                    <input type="password" id="password" required class="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-red-500 focus:border-red-500 transition">
                 </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://images4.alphacoders.com/131/1317134.jpeg" alt="Aldous King of Supremacy">
-                 <div class="skin-type-badge">M1 EXCLUSIVE</div>
-                <div class="skin-card-info">
-                    <h3>Aldous</h3>
-                    <p>King of Supremacy</p>
-                </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://i.ytimg.com/vi/FqMv-f-91mE/maxresdefault.jpg" alt="Wanwan Pixel Blast">
-                 <div class="skin-type-badge">COLLECTOR</div>
-                <div class="skin-card-info">
-                    <h3>Wanwan</h3>
-                    <p>Pixel Blast</p>
-                </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://images.alphacoders.com/133/1332717.jpeg" alt="Yin Yuji Itadori">
-                <div class="skin-type-badge">JJK</div>
-                <div class="skin-card-info">
-                    <h3>Yin</h3>
-                    <p>Yuji Itadori</p>
-                </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://images2.alphacoders.com/123/1233800.jpg" alt="Lancelot Blade of Roses">
-                <div class="skin-type-badge">HERO</div>
-                <div class="skin-card-info">
-                    <h3>Lancelot</h3>
-                    <p>Blade of Roses</p>
-                </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://i.pinimg.com/originals/30/ca/ca/30cacaad54f594511a5b81e4c767e703.jpg" alt="Lesley Angelic Agent">
-                <div class="skin-type-badge">LEGEND</div>
-                <div class="skin-card-info">
-                    <h3>Lesley</h3>
-                    <p>Angelic Agent</p>
-                </div>
-            </div>
-             <div class="skin-card">
-                <img src="https://wallpaperaccess.com/full/7086877.jpg" alt="Layla Miss Hikari">
-                <div class="skin-type-badge">ASPIRANTS</div>
-                <div class="skin-card-info">
-                    <h3>Layla</h3>
-                    <p>Miss Hikari</p>
-                </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://images6.alphacoders.com/133/1332714.jpeg" alt="Melissa Nobara Kugisaki">
-                <div class="skin-type-badge">JJK</div>
-                <div class="skin-card-info">
-                    <h3>Melissa</h3>
-                    <p>Nobara Kugisaki</p>
-                </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://i.ytimg.com/vi/D0xQ3q1Lw5c/maxresdefault.jpg" alt="Benedetta Ducati">
-                <div class="skin-type-badge">DUCATI</div>
-                <div class="skin-card-info">
-                    <h3>Benedetta</h3>
-                    <p>Panigale V4S Rider</p>
-                </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://i.ytimg.com/vi/u6kSgP0E1jI/maxresdefault.jpg" alt="Hayabusa Shura">
-                <div class="skin-type-badge">11.11 EVENT</div>
-                <div class="skin-card-info">
-                    <h3>Hayabusa</h3>
-                    <p>Shura</p>
-                </div>
-            </div>
-            <div class="skin-card">
-                <img src="https://images.hdqwalls.com/download/alucard-obsidian-blade-ml-5k-j7-1280x720.jpg" alt="Alucard Obsidian Blade">
-                <div class="skin-type-badge">LEGEND</div>
-                <div class="skin-card-info">
-                    <h3>Alucard</h3>
-                    <p>Obsidian Blade</p>
-                </div>
-            </div>
-             <div class="skin-card">
-                <img src="https://i.pinimg.com/originals/99/30/a4/9930a47321e105e46ab68b375bce343c.jpg" alt="Lunox Eyes of Eternity">
-                <div class="skin-type-badge">ANNUAL STARLIGHT</div>
-                <div class="skin-card-info">
-                    <h3>Lunox</h3>
-                    <p>Eyes of Eternity</p>
-                </div>
+                
+                <button type="submit" onclick="playSound()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 rounded-lg transition duration-300 shadow-lg shadow-yellow-800">Log In</button>
+
+                <p id="messageBox" class="text-center mt-4 text-sm text-yellow-400 bg-gray-900 p-2 rounded hidden"></p>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-xs text-gray-400">MobileLegendsBangBang official</p>
             </div>
         </div>
     </div>
 
-    <audio id="backgroundMusic" loop>
-        <source src="background-music.mp3" type="audio/mpeg">
-    </audio>
+    <!-- ------------------------------------------------------------------- -->
+    <!-- 2. SETTINGS MODAL (Editable Content) -->
+    <!-- ------------------------------------------------------------------- -->
+    <div id="settingsModal" class="modal fixed inset-0 flex items-center justify-center p-4">
+        <div class="bg-gray-800 w-full max-w-xl p-6 rounded-xl shadow-2xl border-2 border-yellow-400 relative">
+            <button onclick="hideSettingsModal(); playSound();" class="absolute top-2 right-2 text-gray-400 hover:text-white text-2xl font-bold transition">&times;</button>
+            
+            <h2 class="text-2xl font-bold text-center text-yellow-400 mb-6">
+                <svg class="inline w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.44l-.32.06a2 2 0 0 0-1.78 1.14l-.2.43-.43.2a2 2 0 0 0-1.14 1.78l-.06.32H2v.44a2 2 0 0 0 2 2h.44l.06.32a2 2 0 0 0 1.14 1.78l.2.43.43.2a2 2 0 0 0 1.78 1.14l.32.06V22h.44a2 2 0 0 0 2-2v-.44l.32-.06a2 2 0 0 0 1.78-1.14l.2-.43.43-.2a2 2 0 0 0 1.14-1.78l.06-.32H22v-.44a2 2 0 0 0-2-2h-.44l-.06-.32a2 2 0 0 0-1.14-1.78l-.2-.43-.43-.2a2 2 0 0 0-1.78-1.14l-.32-.06V2a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                Template Content Editor
+            </h2>
 
-    <audio id="clickSound">
-        <source src="click-sound.mp3" type="audio/mpeg">
-    </audio>
+            <form id="settingsForm">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <!-- Text Edits -->
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2 text-red-400">စာသား ပြင်ဆင်မှုများ</h3>
+                        <label class="block text-sm mb-1 text-gray-300">Banner ခေါင်းစဉ်:</label>
+                        <input type="text" id="edit_bannerTitle" class="w-full p-2 mb-2 bg-gray-900 border border-gray-600 rounded-md text-sm">
+                        
+                        <label class="block text-sm mb-1 text-gray-300">ID Placeholder စာ:</label>
+                        <input type="text" id="edit_idPlaceholder" class="w-full p-2 mb-2 bg-gray-900 border border-gray-600 rounded-md text-sm">
+
+                        <label class="block text-sm mb-1 text-gray-300">ဝယ်ယူရန် ခလုတ်စာသား:</label>
+                        <input type="text" id="edit_buyButtonText" class="w-full p-2 mb-2 bg-gray-900 border border-gray-600 rounded-md text-sm">
+                    </div>
+
+                    <!-- Image Edits -->
+                    <div class="bg-gray-700 p-4 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2 text-red-400">ပုံများ ပြင်ဆင်မှုများ (URL)</h3>
+                        <label class="block text-sm mb-1 text-gray-300">Banner ပုံ URL:</label>
+                        <input type="url" id="edit_bannerImage" class="w-full p-2 mb-2 bg-gray-900 border border-gray-600 rounded-md text-sm">
+                        
+                        <label class="block text-sm mb-1 text-gray-300">Skin 1 ပုံ URL:</label>
+                        <input type="url" id="edit_skinImage1" class="w-full p-2 mb-2 bg-gray-900 border border-gray-600 rounded-md text-sm">
+                        
+                        <label class="block text-sm mb-1 text-gray-300">Skin 2 ပုံ URL:</label>
+                        <input type="url" id="edit_skinImage2" class="w-full p-2 mb-2 bg-gray-900 border border-gray-600 rounded-md text-sm">
+                        
+                    </div>
+                </div>
+
+                <!-- Sound Edit -->
+                <div class="bg-gray-700 p-4 rounded-lg mb-6">
+                    <h3 class="font-bold text-lg mb-2 text-red-400">Click Sound (အသံ)</h3>
+                    <p class="text-xs text-gray-400 mb-2">ခလုတ်နှိပ်တိုင်း မြည်မယ့် အသံဖိုင် URL ကို ထည့်ပါ။ (ဥပမာ: .mp3, .wav)</p>
+                    <input type="url" id="edit_clickSound" class="w-full p-2 bg-gray-900 border border-gray-600 rounded-md text-sm">
+                </div>
+                
+                <!-- Save Button -->
+                <button type="button" onclick="saveSettings(); playSound();" 
+                        class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 rounded-lg transition duration-300 shadow-lg shadow-yellow-800">
+                    ပြင်ဆင်မှုများကို သိမ်းဆည်းရန်
+                </button>
+            </form>
+
+        </div>
+    </div>
 
     <script>
-        const backgroundMusic = document.getElementById('backgroundMusic');
-        const clickSound = document.getElementById('clickSound');
-        const skinCards = document.querySelectorAll('.skin-card');
+        // Default Configuration and State Management
+        const DEFAULT_SETTINGS = {
+            bannerTitle: 'COLLAB SKINS NOW AVAILABLE',
+            bannerSubTitle: 'EXCLUSIVE EVENT',
+            bannerDescription: 'JOIN AND GET YOUR EXCLUSIVE SKINS NOW',
+            idPlaceholder: 'ID: ********* | ကျေးဇူးပြု၍ သင်၏ ID ကို ထည့်ပါ',
+            buyButtonText: 'ဝယ်ယူရန်',
+            startButtonText: 'စတင်ရန်',
+            skinPrice1: '1250 Diamonds',
+            skinPrice2: '1250 Diamonds',
+            skinImage1: 'https://placehold.co/300x400/1e293b/fff?text=Skin+1',
+            skinImage2: 'https://placehold.co/300x400/1e293b/fff?text=Skin+2',
+            bannerImage: 'https://placehold.co/600x350/000000/F00?text=EXCLUSIVE+EVENT+BANNER',
+            // Example sound URL. Users can change this in the settings panel.
+            clickSound: 'https://cdn.jsdelivr.net/gh/Tonejs/Tone.js/examples/audio/pluck.mp3' 
+        };
 
-        // Play background music on first user interaction
-        document.body.addEventListener('click', () => {
-            if (backgroundMusic.paused) {
-                backgroundMusic.volume = 0.3; // Adjust volume (0.0 to 1.0)
-                backgroundMusic.play();
+        let currentSettings = {};
+        const modal = document.getElementById('loginModal');
+        const settingsModal = document.getElementById('settingsModal');
+        const messageBox = document.getElementById('messageBox');
+        
+        // --- CORE FUNCTIONS ---
+
+        /**
+         * Local Storage မှ Settings များကို Load လုပ်သည် သို့မဟုတ် Default ကို သုံးသည်
+         */
+        function loadSettings() {
+            try {
+                const saved = localStorage.getItem('editableGameTemplateSettings');
+                currentSettings = saved ? JSON.parse(saved) : DEFAULT_SETTINGS;
+            } catch (e) {
+                console.error("Error loading settings from localStorage:", e);
+                currentSettings = DEFAULT_SETTINGS;
             }
-        }, { once: true });
+            updateUI();
+            updateSettingsForm();
+        }
 
-        // Add click sound to all skin cards
-        skinCards.forEach(card => {
-            card.addEventListener('click', () => {
-                clickSound.currentTime = 0; // Rewind to the start
-                clickSound.play();
-            });
+        /**
+         * UI Elements များသို့ လက်ရှိ Settings များကို ထည့်သွင်းပေးသည်
+         */
+        function updateUI() {
+            // Banner/Header Text & Placeholders
+            document.getElementById('bannerTitle').innerHTML = currentSettings.bannerTitle.replace(/\s/g, '&nbsp;') + ' <br class="sm:hidden">';
+            document.getElementById('bannerSubTitle').textContent = currentSettings.bannerSubTitle;
+            document.getElementById('bannerDescription').textContent = currentSettings.bannerDescription;
+            const idInput = document.getElementById('idInputPlaceholder');
+            if (idInput) idInput.placeholder = currentSettings.idPlaceholder;
+            const startButton = document.getElementById('startButton');
+            if (startButton) startButton.textContent = currentSettings.startButtonText;
+
+            // Skin Cards (Only showing dynamic for 1 & 2 for brevity, others follow 1/2's pattern)
+            const price1 = document.getElementById('skinPrice1');
+            if (price1) price1.innerHTML = currentSettings.skinPrice1;
+            const buyBtn1 = document.getElementById('buyButton1');
+            if (buyBtn1) buyBtn1.textContent = currentSettings.buyButtonText;
+            const img1 = document.getElementById('skinImage1');
+            if (img1) img1.src = currentSettings.skinImage1;
+
+            const price2 = document.getElementById('skinPrice2');
+            if (price2) price2.innerHTML = currentSettings.skinPrice1; // Using price 1 for simplicity
+            const buyBtn2 = document.getElementById('buyButton2');
+            if (buyBtn2) buyBtn2.textContent = currentSettings.buyButtonText;
+            const img2 = document.getElementById('skinImage2');
+            if (img2) img2.src = currentSettings.skinImage2;
+            
+            // Background Image
+            const bannerSection = document.getElementById('bannerSection');
+            if (bannerSection) bannerSection.style.backgroundImage = `url('${currentSettings.bannerImage}')`;
+
+            // Footer (Sample Text)
+            const footerText2 = document.getElementById('footerText2');
+            if (footerText2) footerText2.textContent = 'ဤ Template ကို သင်ကိုယ်တိုင် ပြင်ဆင်နိုင်ပါသည်။';
+        }
+        
+        /**
+         * Settings Modal Form ထဲသို့ လက်ရှိ Settings များကို ပြန်လည်ဖြည့်သွင်းပေးသည်
+         */
+        function updateSettingsForm() {
+            const formTitle = document.getElementById('edit_bannerTitle');
+            if (formTitle) formTitle.value = currentSettings.bannerTitle;
+
+            const formPlaceholder = document.getElementById('edit_idPlaceholder');
+            if (formPlaceholder) formPlaceholder.value = currentSettings.idPlaceholder;
+            
+            const formBuyBtn = document.getElementById('edit_buyButtonText');
+            if (formBuyBtn) formBuyBtn.value = currentSettings.buyButtonText;
+            
+            const formBannerImg = document.getElementById('edit_bannerImage');
+            if (formBannerImg) formBannerImg.value = currentSettings.bannerImage;
+            
+            const formSkinImg1 = document.getElementById('edit_skinImage1');
+            if (formSkinImg1) formSkinImg1.value = currentSettings.skinImage1;
+            
+            const formSkinImg2 = document.getElementById('edit_skinImage2');
+            if (formSkinImg2) formSkinImg2.value = currentSettings.skinImage2;
+            
+            const formClickSound = document.getElementById('edit_clickSound');
+            if (formClickSound) formClickSound.value = currentSettings.clickSound;
+        }
+
+        /**
+         * Settings Form မှ တန်ဖိုးများကို ယူ၍ သိမ်းဆည်းသည်
+         */
+        function saveSettings() {
+            const newSettings = {
+                bannerTitle: document.getElementById('edit_bannerTitle')?.value || DEFAULT_SETTINGS.bannerTitle,
+                idPlaceholder: document.getElementById('edit_idPlaceholder')?.value || DEFAULT_SETTINGS.idPlaceholder,
+                buyButtonText: document.getElementById('edit_buyButtonText')?.value || DEFAULT_SETTINGS.buyButtonText,
+                startButtonText: document.getElementById('edit_buyButtonText')?.value || DEFAULT_SETTINGS.startButtonText, 
+                bannerImage: document.getElementById('edit_bannerImage')?.value || DEFAULT_SETTINGS.bannerImage,
+                skinImage1: document.getElementById('edit_skinImage1')?.value || DEFAULT_SETTINGS.skinImage1,
+                skinImage2: document.getElementById('edit_skinImage2')?.value || DEFAULT_SETTINGS.skinImage2,
+                clickSound: document.getElementById('edit_clickSound')?.value || DEFAULT_SETTINGS.clickSound,
+                
+                // Static fields
+                bannerSubTitle: currentSettings.bannerSubTitle,
+                bannerDescription: currentSettings.bannerDescription,
+                skinPrice1: currentSettings.skinPrice1,
+            };
+
+            // Update state and localStorage
+            currentSettings = newSettings;
+            localStorage.setItem('editableGameTemplateSettings', JSON.stringify(currentSettings));
+            
+            updateUI(); // UI ကို ချက်ချင်း ပြန်လည်အပ်ဒိတ်လုပ်သည်
+            // Custom alert message instead of window.alert
+            displayMessage("ပြင်ဆင်မှုများကို သိမ်းဆည်းပြီးပါပြီ!");
+            hideSettingsModal(); // Modal ကို ပိတ်လိုက်သည်
+        }
+
+        /**
+         * Button နှိပ်သံကို ဖွင့်ပေးသည်
+         */
+        function playSound() {
+            if (currentSettings.clickSound) {
+                try {
+                    // Caching the audio element
+                    const audio = new Audio(currentSettings.clickSound);
+                    audio.play().catch(e => console.log("Audio play blocked or failed (user interaction required):", e));
+                } catch (e) {
+                    console.error("Error creating or playing sound:", e);
+                }
+            }
+        }
+        
+        /**
+         * Custom Message Box ဖြင့် စာပို့ရန်
+         * Note: window.alert() အစား အသုံးပြုသည်။
+         */
+        function displayMessage(text) {
+            if (messageBox) {
+                messageBox.textContent = text;
+                messageBox.classList.remove('hidden');
+                // Auto hide after 3 seconds
+                setTimeout(() => {
+                    messageBox.classList.add('hidden');
+                }, 3000);
+            }
+        }
+
+
+        // --- MODAL HANDLING FUNCTIONS ---
+
+        function showLoginModal() {
+            if (modal) { 
+                modal.style.display = 'flex';
+                // Reset message box when showing login modal
+                if (messageBox) messageBox.classList.add('hidden');
+            }
+        }
+
+        function hideLoginModal() {
+            if (modal) { 
+                modal.style.display = 'none';
+            }
+            if (messageBox) { 
+                messageBox.classList.add('hidden'); 
+            }
+        }
+        
+        function showSettingsModal() {
+            updateSettingsForm(); // Form ထဲမှာ လက်ရှိတန်ဖိုးတွေ အရင်ဖြည့်
+            if (settingsModal) { 
+                settingsModal.style.display = 'flex';
+            }
+        }
+
+        function hideSettingsModal() {
+            if (settingsModal) { 
+                settingsModal.style.display = 'none';
+            }
+        }
+
+
+        /**
+         * Login Form Submit ကို ကိုင်တွယ်သည် (အချက်အလက် ပေးပို့ခြင်းကို တားဆီးသည်)
+         */
+        function handleLoginSubmit(event) {
+            event.preventDefault(); 
+            playSound(); // Sound ဖွင့်သည်
+            
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            
+            const displayMsg = `လုံခြုံရေးသတိပေးချက်။ သင်၏အချက်အလက်များကို မည်သည့်နေရာသို့မျှ ပေးပို့ခြင်းမပြုခဲ့ပါ။ 
+                                Login လုပ်ဆောင်ချက်ကို လေ့လာမှုအတွက်သာ ပိတ်ထားပါသည်။`;
+            
+            // Custom message box ဖြင့် ပြသသည် (window.alert/confirm အစား)
+            if (messageBox) {
+                messageBox.textContent = displayMsg;
+                messageBox.classList.remove('hidden');
+            }
+
+            // Input များကို ရှင်းလင်းပေးသည်
+            if (emailInput) emailInput.value = ''; 
+            if (passwordInput) passwordInput.value = ''; 
+        }
+
+
+        // --- EVENT LISTENERS ---
+
+        // စာမျက်နှာ စတင်သည်နှင့် Settings များကို Load လုပ်သည်
+        window.onload = loadSettings;
+        
+        // 'Escape' key နှိပ်ရင် Modal ပိတ်ရန်
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                if (modal && modal.style.display === 'flex') {
+                    hideLoginModal();
+                }
+                if (settingsModal && settingsModal.style.display === 'flex') {
+                    hideSettingsModal();
+                }
+            }
         });
+
+        // Modal အပြင်ဘက်ကို နှိပ်ရင် Modal ပိတ်ရန်
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    hideLoginModal();
+                }
+            });
+        }
+        if (settingsModal) {
+            settingsModal.addEventListener('click', (e) => {
+                if (e.target === settingsModal) {
+                    hideSettingsModal();
+                }
+            });
+        }
     </script>
 </body>
 </html>
